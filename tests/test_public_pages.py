@@ -75,6 +75,26 @@ class PublicPagesTest(unittest.TestCase):
             self.assertIn('href="/dashboard"', response.text)
             self.assertIn("Ir al dashboard", response.text)
 
+    def test_legal_draft_pages_are_public_and_linked(self):
+        pages = {
+            "/privacidad": "Aviso de privacidad",
+            "/cookies": "Política de cookies",
+            "/terminos": "Términos de servicio",
+            "/cancelaciones-y-reembolsos": "Cancelaciones y reembolsos",
+        }
+
+        for path, expected_text in pages.items():
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn(expected_text, response.text)
+                self.assertIn("BORRADOR LEGAL", response.text)
+
+        footer = self.client.get("/").text
+        for path in pages:
+            with self.subTest(footer_link=path):
+                self.assertIn(f'href="{path}"', footer)
+
 
 if __name__ == "__main__":
     unittest.main()

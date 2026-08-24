@@ -52,6 +52,25 @@ TURNSTILE_SITE_KEY = os.getenv("TURNSTILE_SITE_KEY", "")
 # entorno sin modificar la plantilla cuando se defina el buzón definitivo.
 PUBLIC_CONTACT_EMAIL = os.getenv("PUBLIC_CONTACT_EMAIL", "contacto@coupertech.com")
 
+# Datos legales provisionales. LEGAL_DRAFT_MODE debe permanecer activo hasta
+# que identidad, domicilio, teléfono y prácticas de conservación sean
+# validados. Todos los valores pueden cambiarse por entorno sin editar HTML.
+LEGAL_DRAFT_MODE = os.getenv("LEGAL_DRAFT_MODE", "true").lower() == "true"
+LEGAL_BUSINESS_NAME = os.getenv(
+    "LEGAL_BUSINESS_NAME", "CouperTech Demo, S.A. de C.V. (DATO DUMMY)"
+)
+LEGAL_BUSINESS_ADDRESS = os.getenv(
+    "LEGAL_BUSINESS_ADDRESS",
+    "Av. Ejemplo 123, Col. Centro, C.P. 00000, Ciudad de México, México (DATO DUMMY)",
+)
+LEGAL_SUPPORT_PHONE = os.getenv("LEGAL_SUPPORT_PHONE", "+52 55 0000 0000 (DATO DUMMY)")
+LEGAL_CONTACT_EMAIL = os.getenv("LEGAL_CONTACT_EMAIL", PUBLIC_CONTACT_EMAIL)
+LEGAL_LAST_UPDATED = os.getenv("LEGAL_LAST_UPDATED", "23 de agosto de 2026")
+LEGAL_AUDIO_RETENTION_NOTICE = os.getenv(
+    "LEGAL_AUDIO_RETENTION_NOTICE",
+    "DATO DUMMY: los archivos de audio y sus resultados se eliminan dentro de las 24 horas posteriores al procesamiento.",
+)
+
 # SSO best-effort hacia pronunciation-scorer (ingles.coupertech.com): al
 # loguearse aca, se pide TAMBIEN un JWT con servicio="score" (misma
 # password que ya se recibio en este request) y se guarda con
@@ -472,6 +491,51 @@ async def contacto_page(request: Request):
         request=request,
         name="contacto.html",
         context={"contact_email": PUBLIC_CONTACT_EMAIL},
+    )
+
+
+def _legal_context() -> dict[str, str | bool]:
+    """Contexto común de los borradores legales públicos."""
+    return {
+        "legal_draft_mode": LEGAL_DRAFT_MODE,
+        "legal_business_name": LEGAL_BUSINESS_NAME,
+        "legal_business_address": LEGAL_BUSINESS_ADDRESS,
+        "legal_support_phone": LEGAL_SUPPORT_PHONE,
+        "legal_contact_email": LEGAL_CONTACT_EMAIL,
+        "legal_last_updated": LEGAL_LAST_UPDATED,
+        "legal_audio_retention_notice": LEGAL_AUDIO_RETENTION_NOTICE,
+    }
+
+
+@app.get("/privacidad", response_class=HTMLResponse)
+async def privacidad_page(request: Request):
+    """Borrador público del aviso integral de privacidad."""
+    return templates.TemplateResponse(
+        request=request, name="privacidad.html", context=_legal_context()
+    )
+
+
+@app.get("/cookies", response_class=HTMLResponse)
+async def cookies_page(request: Request):
+    """Información pública sobre cookies y tecnologías necesarias."""
+    return templates.TemplateResponse(
+        request=request, name="cookies.html", context=_legal_context()
+    )
+
+
+@app.get("/terminos", response_class=HTMLResponse)
+async def terminos_page(request: Request):
+    """Borrador público de términos de servicio."""
+    return templates.TemplateResponse(
+        request=request, name="terminos.html", context=_legal_context()
+    )
+
+
+@app.get("/cancelaciones-y-reembolsos", response_class=HTMLResponse)
+async def cancelaciones_page(request: Request):
+    """Política pública de cancelaciones y reembolsos."""
+    return templates.TemplateResponse(
+        request=request, name="cancelaciones.html", context=_legal_context()
     )
 
 

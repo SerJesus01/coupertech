@@ -1,0 +1,41 @@
+{% extends "base_legal.html" %}
+
+{% block title %}Política de cookies | CouperTech{% endblock %}
+{% block og_title %}Política de cookies | CouperTech{% endblock %}
+{% block meta_description %}Conoce las cookies necesarias que CouperTech utiliza para sesiones, seguridad y acceso entre servicios.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/cookies">
+    <link rel="canonical" href="https://coupertech.com/cookies">
+{% endblock %}
+
+{% block legal_title %}Política de cookies{% endblock %}
+{% block legal_lead %}Usamos tecnologías necesarias para mantener sesiones y proteger formularios. No utilizamos cookies publicitarias actualmente.{% endblock %}
+
+{% block legal_content %}
+<p>Las cookies son pequeños datos que el navegador conserva y envía al sitio. En CouperTech se usan para funciones técnicas y de seguridad; la página pública puede consultarse sin iniciar sesión.</p>
+
+<h2>1. Cookies utilizadas</h2>
+<div class="legal-table-wrap">
+    <table class="legal-table">
+        <thead><tr><th>Cookie o categoría</th><th>Finalidad</th><th>Duración prevista</th><th>Tipo</th></tr></thead>
+        <tbody>
+            <tr><td><code>session_uuid</code></td><td>Mantener la sesión del portal y autorizar el acceso al dashboard.</td><td>Hasta 4 horas o hasta cerrar/revocar la sesión.</td><td>Necesaria, propia y HttpOnly.</td></tr>
+            <tr><td><code>ps_session</code></td><td>Facilitar inicio de sesión entre servicios compatibles de CouperTech, cuando esta función esté habilitada.</td><td>Hasta 4 horas.</td><td>Necesaria para SSO y HttpOnly.</td></tr>
+            <tr><td>Cloudflare / Turnstile</td><td>Comprobar solicitudes legítimas, reducir automatización abusiva y proteger formularios.</td><td>Variable según la comprobación de seguridad.</td><td>Necesaria, de proveedor.</td></tr>
+        </tbody>
+    </table>
+</div>
+<p>Los nombres y duraciones de las cookies de seguridad del proveedor pueden variar conforme a la configuración necesaria para enfrentar riesgos.</p>
+
+<h2>2. Cookies que no usamos actualmente</h2>
+<p>No usamos cookies de publicidad, perfiles comerciales ni analítica de terceros en las páginas públicas. Si en el futuro incorporamos tecnologías no necesarias, actualizaremos esta política y, cuando corresponda, solicitaremos consentimiento antes de activarlas.</p>
+
+<h2>3. Seguridad de las sesiones</h2>
+<p>Las cookies de sesión se configuran como <code>HttpOnly</code> para que el JavaScript del navegador no pueda leer su identificador y como <code>SameSite=Lax</code> para reducir ciertos envíos entre sitios. En producción deben transmitirse únicamente mediante HTTPS.</p>
+
+<h2>4. Cómo administrar cookies</h2>
+<p>Puedes bloquear o eliminar cookies desde la configuración de tu navegador. Si bloqueas las necesarias, la landing seguirá disponible, pero el inicio de sesión, el dashboard, Turnstile o el acceso coordinado entre servicios podrían dejar de funcionar.</p>
+
+<h2>5. Contacto y cambios</h2>
+<p>Para preguntas sobre estas tecnologías, escribe a <a href="mailto:{{ legal_contact_email }}?subject=Consulta%20sobre%20cookies">{{ legal_contact_email }}</a>. Los cambios se publicarán aquí con una nueva fecha de actualización.</p>
+{% endblock %}

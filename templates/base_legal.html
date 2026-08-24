@@ -1,0 +1,39 @@
+{% extends "base_public.html" %}
+
+{% block content %}
+<section class="page-hero legal-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <a class="breadcrumb" href="/">Inicio</a>
+            <p class="eyebrow"><span></span> Información legal</p>
+            <h1>{% block legal_title %}{% endblock %}</h1>
+        </div>
+        <p class="page-lead">{% block legal_lead %}{% endblock %}</p>
+        <p class="legal-updated">Última actualización: {{ legal_last_updated }}</p>
+    </div>
+</section>
+
+{% if legal_draft_mode %}
+<aside class="legal-draft-banner" aria-label="Advertencia de borrador">
+    <div class="container">
+        <strong>BORRADOR LEGAL</strong>
+        <p>Contiene identidad, domicilio, teléfono y plazos dummy. Debe validarse antes de producción y antes de habilitar pagos reales.</p>
+    </div>
+</aside>
+{% endif %}
+
+<section class="legal-section">
+    <div class="container legal-layout">
+        <nav class="legal-nav" aria-label="Documentos legales">
+            <strong>Documentos</strong>
+            <a href="/privacidad" {% if request.url.path == '/privacidad' %}aria-current="page"{% endif %}>Privacidad</a>
+            <a href="/cookies" {% if request.url.path == '/cookies' %}aria-current="page"{% endif %}>Cookies</a>
+            <a href="/terminos" {% if request.url.path == '/terminos' %}aria-current="page"{% endif %}>Términos de servicio</a>
+            <a href="/cancelaciones-y-reembolsos" {% if request.url.path == '/cancelaciones-y-reembolsos' %}aria-current="page"{% endif %}>Cancelaciones y reembolsos</a>
+        </nav>
+        <article class="legal-document">
+            {% block legal_content %}{% endblock %}
+        </article>
+    </div>
+</section>
+{% endblock %}

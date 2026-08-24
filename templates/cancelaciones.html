@@ -1,0 +1,56 @@
+{% extends "base_legal.html" %}
+
+{% block title %}Cancelaciones y reembolsos | CouperTech{% endblock %}
+{% block og_title %}Cancelaciones y reembolsos | CouperTech{% endblock %}
+{% block meta_description %}Consulta cómo cancelar suscripciones y solicitar aclaraciones o reembolsos de servicios CouperTech.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/cancelaciones-y-reembolsos">
+    <link rel="canonical" href="https://coupertech.com/cancelaciones-y-reembolsos">
+{% endblock %}
+
+{% block legal_title %}Cancelaciones y reembolsos{% endblock %}
+{% block legal_lead %}Reglas claras para detener renovaciones, revisar cargos y resolver pagos duplicados o servicios no prestados.{% endblock %}
+
+{% block legal_content %}
+<p>Esta política distingue los servicios mensuales de los cobrados por consumo. No limita los derechos obligatorios que correspondan conforme a la legislación aplicable.</p>
+
+<h2>1. Suscripciones mensuales</h2>
+<p>El Cliente puede cancelar una suscripción en cualquier momento y sin penalización. Mientras se habilita el mecanismo de autoservicio en el portal, puede solicitarlo en <a href="mailto:{{ legal_contact_email }}?subject=Cancelación%20de%20suscripción">{{ legal_contact_email }}</a>. La solicitud queda registrada al momento de su recepción y detiene futuras renovaciones.</p>
+<p>Salvo que el Cliente solicite cierre inmediato, el servicio permanece disponible hasta finalizar el periodo ya pagado. Después no se generarán nuevos cargos recurrentes.</p>
+
+<h2>2. Aviso de renovación</h2>
+<p>Antes de una renovación automática, CouperTech informará de manera clara la periodicidad, monto y fecha de cobro, y enviará un aviso al menos cinco días naturales antes. El Cliente podrá cancelar desde ese aviso o mediante los canales indicados sin penalización.</p>
+
+<h2>3. Servicios por consumo</h2>
+<p>Los importes correspondientes a solicitudes ya procesadas y registradas —por ejemplo, audio transcrito o sintetizado— no son reembolsables, salvo error de medición, cobro duplicado, resultado no entregado por una falla atribuible a CouperTech o disposición legal aplicable.</p>
+<p>Las solicitudes no procesadas no deben generar consumo facturable. Si una autorización de pago no se completa, su liberación dependerá de la institución financiera.</p>
+
+<h2>4. Casos elegibles para revisión o reembolso</h2>
+<ul>
+    <li>Cobro duplicado o por un importe distinto al aceptado.</li>
+    <li>Cargo posterior a una cancelación recibida oportunamente.</li>
+    <li>Consumo registrado sin que CouperTech haya procesado o entregado el servicio.</li>
+    <li>Falla prolongada atribuible a CouperTech que impida utilizar una parte material del periodo contratado.</li>
+    <li>Revocación, bonificación o reembolso exigido por la legislación aplicable.</li>
+</ul>
+<p>Normalmente no procede un reembolso por uso ya consumido, falta de utilización voluntaria durante el periodo, errores de integración del Cliente, incumplimiento de requisitos técnicos publicados o suspensión causada por uso prohibido.</p>
+
+<h2>5. Reembolsos proporcionales</h2>
+<p>La cancelación ordinaria de una mensualidad detiene renovaciones futuras, pero no genera automáticamente reembolso proporcional del periodo en curso. Podemos otorgarlo cuando exista una falla material atribuible a CouperTech o cuando lo exija la ley.</p>
+
+<h2>6. Cómo presentar una solicitud</h2>
+<p>Escribe a <a href="mailto:{{ legal_contact_email }}?subject=Aclaración%20o%20reembolso">{{ legal_contact_email }}</a> lo antes posible e incluye:</p>
+<ul>
+    <li>Correo y organización asociados a la cuenta.</li>
+    <li>Fecha, importe y referencia del cargo, sin enviar números completos de tarjeta.</li>
+    <li>Servicio afectado y una descripción breve del problema.</li>
+    <li>Evidencia no sensible que permita revisar la operación.</li>
+</ul>
+<p>Confirmaremos la recepción y procuraremos resolver la revisión dentro de diez días hábiles. Si se aprueba, el reembolso se enviará al método de pago original; el tiempo para reflejarlo dependerá del procesador y de la institución financiera.</p>
+
+<h2>7. Cierre de cuenta y datos</h2>
+<p>Cancelar una suscripción no elimina automáticamente la cuenta ni los datos necesarios para facturación, seguridad o responsabilidades pendientes. El Cliente puede solicitar el cierre y ejercer sus derechos conforme al <a href="/privacidad">aviso de privacidad</a>.</p>
+
+<h2>8. Aclaraciones</h2>
+<div class="legal-callout"><p>Contacto: <a href="mailto:{{ legal_contact_email }}">{{ legal_contact_email }}</a> · {{ legal_support_phone }} · {{ legal_business_address }}</p></div>
+{% endblock %}
