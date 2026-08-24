@@ -35,6 +35,27 @@ class PublicPagesTest(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertEqual(self.client.get(path).status_code, 200)
 
+    def test_public_information_pages_are_available(self):
+        pages = {
+            "/servicios": "Una plataforma, distintas capacidades",
+            "/seguridad": "Confianza construida en cada capa",
+            "/nosotros": "Tecnología fresca, seria y cercana",
+            "/contacto": "Un canal directo con el equipo",
+        }
+
+        for path, expected_text in pages.items():
+            with self.subTest(path=path):
+                response = self.client.get(path)
+                self.assertEqual(response.status_code, 200)
+                self.assertIn(expected_text, response.text)
+
+    def test_home_navigation_links_to_public_pages(self):
+        response = self.client.get("/")
+
+        for path in ("/servicios", "/seguridad", "/nosotros", "/contacto"):
+            with self.subTest(path=path):
+                self.assertIn(f'href="{path}"', response.text)
+
 
 if __name__ == "__main__":
     unittest.main()
