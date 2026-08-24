@@ -14,7 +14,9 @@
             </p>
             <div class="hero-actions">
                 <a class="button" href="/servicios">Explorar servicios</a>
-                <a class="button button-secondary" href="/login">Entrar al portal <span aria-hidden="true">→</span></a>
+                <a class="button button-secondary" href="{{ '/dashboard' if has_portal_session else '/login' }}">
+                    {{ 'Ir al dashboard' if has_portal_session else 'Entrar al portal' }} <span aria-hidden="true">→</span>
+                </a>
             </div>
             <ul class="hero-points" aria-label="Ventajas de CouperTech">
                 <li><span aria-hidden="true">✓</span> Integración con API keys</li>
