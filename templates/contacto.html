@@ -1,0 +1,39 @@
+{% extends "base_public.html" %}
+
+{% block title %}Contacto | CouperTech{% endblock %}
+{% block og_title %}Contacto | CouperTech{% endblock %}
+{% block meta_description %}Contacta a CouperTech para conocer sus servicios cloud, resolver dudas de integración o conversar sobre tu producto.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/contacto">
+    <link rel="canonical" href="https://coupertech.com/contacto">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero contact-hero">
+    <div class="container page-hero-grid">
+        <div><a class="breadcrumb" href="/">Inicio</a><p class="eyebrow"><span></span> Contacto</p><h1>Hablemos de lo que estás construyendo.</h1></div>
+        <p class="page-lead">Cuéntanos qué capacidad necesitas, en qué etapa se encuentra tu producto o qué duda tienes sobre la plataforma.</p>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container contact-grid">
+        <div class="contact-primary">
+            <p class="eyebrow"><span></span> Correo empresarial</p>
+            <h2>Un canal directo con el equipo.</h2>
+            <p>Escríbenos para conversar sobre servicios, integraciones, cuentas o posibles colaboraciones.</p>
+            <a class="email-link" href="mailto:{{ contact_email }}?subject=Contacto%20desde%20CouperTech">{{ contact_email }} <span aria-hidden="true">↗</span></a>
+            <p class="security-note"><strong>Importante:</strong> no envíes contraseñas, tokens, API keys ni secretos por correo.</p>
+        </div>
+        <div class="contact-topics">
+            <article><span>01</span><div><h3>Productos e integración</h3><p>Qué servicio encaja, cómo se consume y qué necesitas para conectarlo.</p></div></article>
+            <article><span>02</span><div><h3>Cuenta y acceso</h3><p>Dudas generales relacionadas con registro, organizaciones y acceso al portal.</p></div></article>
+            <article><span>03</span><div><h3>Empresa y alianzas</h3><p>Conversaciones comerciales, colaboración y oportunidades para crecer juntos.</p></div></article>
+        </div>
+    </div>
+</section>
+
+<section class="contact-options">
+    <div class="container options-grid"><article><p class="eyebrow"><span></span> ¿Ya tienes cuenta?</p><h2>Accede a tu portal.</h2><p>Administra tus servicios, métricas y credenciales desde un mismo lugar.</p><a class="button button-secondary" href="/login">Iniciar sesión</a></article><article><p class="eyebrow"><span></span> ¿Quieres comenzar?</p><h2>Crea tu cuenta.</h2><p>Registra tu acceso para conocer los servicios disponibles en la plataforma.</p><a class="button" href="/registro">Crear cuenta</a></article></div>
+</section>
+{% endblock %}

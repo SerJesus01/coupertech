@@ -1,0 +1,102 @@
+{% extends "base_public.html" %}
+
+{% block title %}Servicios cloud | CouperTech{% endblock %}
+{% block og_title %}Servicios cloud | CouperTech{% endblock %}
+{% block meta_description %}Conoce los servicios de autenticación, secretos, transcripción, síntesis de voz y aprendizaje de idiomas de CouperTech.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/servicios">
+    <link rel="canonical" href="https://coupertech.com/servicios">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero">
+    <div class="container page-hero-grid">
+        <div>
+            <a class="breadcrumb" href="/">Inicio</a>
+            <p class="eyebrow"><span></span> Servicios</p>
+            <h1>Una plataforma, distintas capacidades para tu producto.</h1>
+        </div>
+        <p class="page-lead">Integra únicamente lo que necesitas. Cada servicio tiene un propósito claro, credenciales propias y una forma de consumo adecuada a su función.</p>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container product-list">
+        <article class="product-detail" id="autenticacion">
+            <div class="product-index">01</div>
+            <div class="product-summary">
+                <span class="model-tag">Suscripción mensual</span>
+                <h2>Autenticación y manejo de sesiones</h2>
+                <p>Una capa central para administrar identidades, accesos y sesiones sin repetir la misma infraestructura en cada aplicación.</p>
+            </div>
+            <div class="product-capabilities">
+                <h3>Qué aporta</h3>
+                <ul class="check-list"><li>Registro e inicio de sesión</li><li>Sesiones administradas</li><li>Organizaciones y usuarios</li><li>Credenciales para aplicaciones</li></ul>
+            </div>
+        </article>
+
+        <article class="product-detail" id="secretos">
+            <div class="product-index">02</div>
+            <div class="product-summary">
+                <span class="model-tag">Suscripción mensual</span>
+                <h2>Gestión de secretos</h2>
+                <p>Centraliza credenciales y valores sensibles con permisos claros, versiones y visibilidad para cada organización.</p>
+            </div>
+            <div class="product-capabilities">
+                <h3>Qué aporta</h3>
+                <ul class="check-list"><li>Separación por organización</li><li>Permisos de lectura y escritura</li><li>Versionado de secretos</li><li>Métricas de actividad</li></ul>
+            </div>
+        </article>
+
+        <article class="product-detail" id="transcripcion">
+            <div class="product-index">03</div>
+            <div class="product-summary">
+                <span class="model-tag usage">Pago por consumo</span>
+                <h2>Transcripción de audio</h2>
+                <p>Convierte audio en texto mediante API y añade esta capacidad a flujos, productos o procesos internos.</p>
+            </div>
+            <div class="product-capabilities">
+                <h3>Qué aporta</h3>
+                <ul class="check-list"><li>Procesamiento medido por minutos</li><li>Integración mediante credenciales</li><li>Resultados listos para consumir</li><li>Métricas de uso</li></ul>
+            </div>
+        </article>
+
+        <article class="product-detail" id="sintesis">
+            <div class="product-index">04</div>
+            <div class="product-summary">
+                <span class="model-tag usage">Pago por consumo</span>
+                <h2>Síntesis de voz</h2>
+                <p>Genera audio a partir de texto para contenido accesible, asistentes y experiencias que necesitan una salida hablada.</p>
+            </div>
+            <div class="product-capabilities">
+                <h3>Qué aporta</h3>
+                <ul class="check-list"><li>Texto convertido en voz</li><li>Procesamiento medido por palabras</li><li>Acceso mediante API</li><li>Seguimiento de consumo</li></ul>
+            </div>
+        </article>
+
+        <article class="product-detail" id="idiomas">
+            <div class="product-index">05</div>
+            <div class="product-summary">
+                <span class="model-tag specialized">Solución especializada</span>
+                <h2>Aprendizaje de idiomas</h2>
+                <p>Una experiencia de práctica que combina contenido, pronunciación y progreso para acompañar el aprendizaje de manera más humana.</p>
+            </div>
+            <div class="product-capabilities">
+                <h3>Qué aporta</h3>
+                <ul class="check-list"><li>Práctica guiada</li><li>Ejercicios interactivos</li><li>Trabajo de pronunciación</li><li>Progreso observable</li></ul>
+            </div>
+        </article>
+    </div>
+</section>
+
+<section class="decision-section">
+    <div class="container decision-grid">
+        <div><p class="eyebrow"><span></span> Modelos flexibles</p><h2>Suscripción cuando necesitas continuidad. Consumo cuando necesitas escala variable.</h2></div>
+        <div class="decision-cards"><article><strong>Mensual</strong><p>Para servicios operativos que forman parte constante de tu plataforma.</p></article><article><strong>Por consumo</strong><p>Para capacidades cuyo uso cambia con la actividad de tu producto.</p></article></div>
+    </div>
+</section>
+
+<section class="page-cta">
+    <div class="container page-cta-inner"><div><p class="eyebrow light"><span></span> ¿No sabes por dónde empezar?</p><h2>Cuéntanos qué estás construyendo.</h2></div><a class="button button-light" href="/contacto">Hablar con CouperTech</a></div>
+</section>
+{% endblock %}

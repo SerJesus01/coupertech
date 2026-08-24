@@ -1,0 +1,40 @@
+{% extends "base_public.html" %}
+
+{% block title %}Nosotros | CouperTech{% endblock %}
+{% block og_title %}Nosotros | CouperTech{% endblock %}
+{% block meta_description %}CouperTech es una empresa tecnológica mexicana que construye servicios cloud claros, confiables y con sentido humano.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/nosotros">
+    <link rel="canonical" href="https://coupertech.com/nosotros">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero about-hero">
+    <div class="container page-hero-grid">
+        <div><a class="breadcrumb" href="/">Inicio</a><p class="eyebrow"><span></span> Nosotros</p><h1>Tecnología fresca, seria y cercana.</h1></div>
+        <p class="page-lead">CouperTech nace en México con una idea sencilla: hacer que capacidades técnicas complejas sean más accesibles para equipos que están construyendo algo nuevo.</p>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container story-grid">
+        <div class="story-card"><span class="story-mark">C</span><p>Cloud con sentido humano</p></div>
+        <div class="story-copy"><p class="eyebrow"><span></span> Nuestra razón de ser</p><h2>Queremos que la infraestructura acompañe las ideas, no que las detenga.</h2><p>Las startups y los equipos pequeños suelen invertir tiempo en reconstruir autenticación, manejo de secretos o procesamiento especializado. CouperTech reúne estas capacidades para que puedan enfocarse en el valor de su producto.</p><p>Somos una empresa nueva. Eso nos permite escuchar, aprender y construir una relación más directa con quienes utilizan nuestros servicios.</p></div>
+    </div>
+</section>
+
+<section class="values-section">
+    <div class="container">
+        <div class="center-heading"><p class="eyebrow"><span></span> Cómo trabajamos</p><h2>Principios que orientan cada decisión.</h2></div>
+        <div class="values-grid"><article><span>01</span><h3>Claridad</h3><p>Explicamos qué hace cada servicio, qué necesita y cómo se utiliza.</p></article><article><span>02</span><h3>Confianza</h3><p>Construimos límites visibles y evitamos promesas que todavía no podemos demostrar.</p></article><article><span>03</span><h3>Cercanía</h3><p>Detrás de cada integración hay personas y problemas que merecen ser escuchados.</p></article><article><span>04</span><h3>Evolución</h3><p>Mejoramos con aprendizaje continuo y decisiones técnicas sostenibles.</p></article></div>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container vision-grid"><div><p class="eyebrow"><span></span> Nuestra visión</p><h2>Una plataforma mexicana capaz de crecer junto a sus clientes.</h2></div><div class="vision-copy"><p>No buscamos ser una colección desordenada de herramientas. Estamos construyendo un ecosistema donde identidad, credenciales, métricas y servicios especializados puedan convivir con una experiencia coherente.</p><a class="text-link dark" href="/servicios">Conocer los servicios <span aria-hidden="true">→</span></a></div></div>
+</section>
+
+<section class="page-cta">
+    <div class="container page-cta-inner"><div><p class="eyebrow light"><span></span> Construyamos en conjunto</p><h2>Nos interesa conocer el producto que estás creando.</h2></div><a class="button button-light" href="/contacto">Hablar con nosotros</a></div>
+</section>
+{% endblock %}

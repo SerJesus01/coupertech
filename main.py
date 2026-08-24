@@ -48,6 +48,10 @@ SERVICIO_SLUG = os.getenv("SERVICIO_SLUG", "portal")
 # vive solo en authservice (Vault secret/authservice), nunca aqui.
 TURNSTILE_SITE_KEY = os.getenv("TURNSTILE_SITE_KEY", "")
 
+# Correo público mostrado en la página de contacto. Se puede cambiar por
+# entorno sin modificar la plantilla cuando se defina el buzón definitivo.
+PUBLIC_CONTACT_EMAIL = os.getenv("PUBLIC_CONTACT_EMAIL", "contacto@coupertech.com")
+
 # SSO best-effort hacia pronunciation-scorer (ingles.coupertech.com): al
 # loguearse aca, se pide TAMBIEN un JWT con servicio="score" (misma
 # password que ya se recibio en este request) y se guarda con
@@ -428,6 +432,34 @@ async def _intentar_sso_score(email: str, password: str, respuesta: JSONResponse
 async def home_page(request: Request):
     """Página pública de presentación de la plataforma CouperTech."""
     return templates.TemplateResponse(request=request, name="index.html")
+
+
+@app.get("/servicios", response_class=HTMLResponse)
+async def servicios_page(request: Request):
+    """Detalle público de los servicios disponibles en CouperTech."""
+    return templates.TemplateResponse(request=request, name="servicios.html")
+
+
+@app.get("/seguridad", response_class=HTMLResponse)
+async def seguridad_page(request: Request):
+    """Prácticas de seguridad aplicadas por la plataforma."""
+    return templates.TemplateResponse(request=request, name="seguridad.html")
+
+
+@app.get("/nosotros", response_class=HTMLResponse)
+async def nosotros_page(request: Request):
+    """Presentación pública de la empresa y sus principios."""
+    return templates.TemplateResponse(request=request, name="nosotros.html")
+
+
+@app.get("/contacto", response_class=HTMLResponse)
+async def contacto_page(request: Request):
+    """Canales públicos para contactar al equipo de CouperTech."""
+    return templates.TemplateResponse(
+        request=request,
+        name="contacto.html",
+        context={"contact_email": PUBLIC_CONTACT_EMAIL},
+    )
 
 
 @app.get("/login", response_class=HTMLResponse)

@@ -10,8 +10,10 @@
     <meta property="og:site_name" content="CouperTech">
     <meta property="og:title" content="{% block og_title %}CouperTech | Infraestructura cloud sencilla{% endblock %}">
     <meta property="og:description" content="Servicios cloud confiables para integrar capacidades sin construirlas desde cero.">
+    {% block social_url %}
     <meta property="og:url" content="https://coupertech.com/">
     <link rel="canonical" href="https://coupertech.com/">
+    {% endblock %}
     <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
     <link rel="stylesheet" href="/static/public.css">
     <title>{% block title %}CouperTech | Infraestructura cloud sencilla{% endblock %}</title>
@@ -32,12 +34,13 @@
             </button>
 
             <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
-                <a href="#servicios">Servicios</a>
-                <a href="#como-funciona">Cómo funciona</a>
-                <a href="#confianza">Confianza</a>
-                <a href="#empresa">Empresa</a>
+                <a href="/servicios">Servicios</a>
+                <a href="/#como-funciona">Cómo funciona</a>
+                <a href="/seguridad">Seguridad</a>
+                <a href="/nosotros">Nosotros</a>
+                <a href="/contacto">Contacto</a>
                 <a class="nav-login" href="/login">Iniciar sesión</a>
-                <a class="button button-small" href="#servicios">Explorar servicios</a>
+                <a class="button button-small" href="/servicios">Explorar servicios</a>
             </nav>
         </div>
     </header>
@@ -57,14 +60,20 @@
             </div>
             <div class="footer-links">
                 <strong>Plataforma</strong>
-                <a href="#servicios">Servicios</a>
-                <a href="#como-funciona">Cómo funciona</a>
-                <a href="#confianza">Seguridad</a>
+                <a href="/servicios">Servicios</a>
+                <a href="/#como-funciona">Cómo funciona</a>
+                <a href="/seguridad">Seguridad</a>
             </div>
             <div class="footer-links">
-                <strong>Acceso</strong>
-                <a href="/registro">Crear cuenta</a>
+                <strong>Empresa</strong>
+                <a href="/nosotros">Nosotros</a>
+                <a href="/contacto">Contacto</a>
                 <a href="/login">Portal de clientes</a>
+            </div>
+            <div class="footer-links">
+                <strong>Comenzar</strong>
+                <a href="/registro">Crear cuenta</a>
+                <a href="/servicios">Explorar servicios</a>
             </div>
         </div>
         <div class="container footer-bottom">

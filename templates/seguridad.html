@@ -1,0 +1,50 @@
+{% extends "base_public.html" %}
+
+{% block title %}Seguridad y confianza | CouperTech{% endblock %}
+{% block og_title %}Seguridad y confianza | CouperTech{% endblock %}
+{% block meta_description %}Conoce las prácticas con las que CouperTech protege sesiones, credenciales, secretos y acceso entre servicios.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/seguridad">
+    <link rel="canonical" href="https://coupertech.com/seguridad">
+{% endblock %}
+
+{% block content %}
+<section class="page-hero security-hero">
+    <div class="container page-hero-grid">
+        <div><a class="breadcrumb" href="/">Inicio</a><p class="eyebrow"><span></span> Seguridad</p><h1>Confianza construida en cada capa.</h1></div>
+        <p class="page-lead">Diseñamos la plataforma para reducir exposición, separar responsabilidades y mantener las credenciales sensibles fuera de la experiencia cotidiana del usuario.</p>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container security-principles">
+        <div class="section-intro"><p class="eyebrow"><span></span> Principios aplicados</p><h2>Seguridad práctica, explicada con claridad.</h2><p>No presentamos certificaciones que aún no tenemos. Mostramos las medidas que realmente forman parte de la arquitectura actual.</p></div>
+        <div class="principles-grid">
+            <article class="principle-card"><span>01</span><h3>Sesiones protegidas</h3><p>El portal utiliza cookies HttpOnly para evitar que el identificador de sesión quede expuesto al JavaScript del navegador.</p></article>
+            <article class="principle-card"><span>02</span><h3>Credenciales con alcance</h3><p>Las API keys se asocian al servicio y a los permisos que necesitan, evitando mezclar accesos entre productos.</p></article>
+            <article class="principle-card"><span>03</span><h3>Secretos centralizados</h3><p>Las credenciales internas se administran mediante una capa especializada basada en Vault, fuera del código de la aplicación.</p></article>
+            <article class="principle-card"><span>04</span><h3>Servicios separados</h3><p>Autenticación, secretos, audio y catálogo mantienen responsabilidades independientes y comunicación controlada.</p></article>
+            <article class="principle-card"><span>05</span><h3>Protección de formularios</h3><p>Turnstile ayuda a reducir intentos automatizados en operaciones públicas como acceso y registro.</p></article>
+            <article class="principle-card"><span>06</span><h3>Actividad observable</h3><p>Los paneles muestran uso, sesiones y métricas para que cada organización conserve visibilidad de su operación.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="security-flow">
+    <div class="container security-flow-grid">
+        <div><p class="eyebrow light"><span></span> Separación de responsabilidades</p><h2>Una identidad, credenciales específicas y servicios independientes.</h2><p>El portal coordina la experiencia, mientras cada servicio conserva sus propias reglas de autorización y métricas.</p></div>
+        <div class="flow-diagram" aria-label="Flujo simplificado de seguridad"><div>Usuario</div><span>Sesión segura</span><div>Portal</div><span>Credencial M2M</span><div>Servicio</div></div>
+    </div>
+</section>
+
+<section class="section page-section">
+    <div class="container responsible-grid">
+        <div><p class="eyebrow"><span></span> Responsabilidad compartida</p><h2>La seguridad también depende de cómo integras.</h2></div>
+        <ul class="responsibility-list"><li><strong>No publiques API keys.</strong><span>Guárdalas fuera del repositorio y rota cualquier credencial expuesta.</span></li><li><strong>Asigna el menor permiso posible.</strong><span>Utiliza credenciales diferentes para cada servicio y finalidad.</span></li><li><strong>Usa HTTPS en producción.</strong><span>Protege las comunicaciones entre usuarios, aplicaciones y APIs.</span></li><li><strong>Reporta comportamientos inesperados.</strong><span>Contacta al equipo sin incluir contraseñas, tokens o secretos.</span></li></ul>
+    </div>
+</section>
+
+<section class="page-cta">
+    <div class="container page-cta-inner"><div><p class="eyebrow light"><span></span> Seguridad y soporte</p><h2>¿Tienes una pregunta técnica o detectaste un riesgo?</h2></div><a class="button button-light" href="/contacto">Contactar al equipo</a></div>
+</section>
+{% endblock %}
