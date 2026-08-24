@@ -1,0 +1,185 @@
+{% extends "base_public.html" %}
+
+{% block content %}
+<section class="hero">
+    <div class="hero-orb hero-orb-one" aria-hidden="true"></div>
+    <div class="hero-orb hero-orb-two" aria-hidden="true"></div>
+    <div class="container hero-grid">
+        <div class="hero-copy">
+            <p class="eyebrow"><span></span> Plataforma de servicios cloud</p>
+            <h1>Infraestructura sencilla para hacer crecer tu producto.</h1>
+            <p class="hero-text">
+                Integra autenticación, secretos, audio e idiomas sin construir cada capacidad
+                desde cero. CouperTech reúne servicios listos para conectar mediante API.
+            </p>
+            <div class="hero-actions">
+                <a class="button" href="#servicios">Explorar servicios</a>
+                <a class="button button-secondary" href="/login">Entrar al portal <span aria-hidden="true">→</span></a>
+            </div>
+            <ul class="hero-points" aria-label="Ventajas de CouperTech">
+                <li><span aria-hidden="true">✓</span> Integración con API keys</li>
+                <li><span aria-hidden="true">✓</span> Servicios independientes</li>
+                <li><span aria-hidden="true">✓</span> Acompañamiento cercano</li>
+            </ul>
+        </div>
+
+        <div class="platform-visual" aria-label="Representación de la plataforma CouperTech">
+            <div class="visual-header">
+                <div class="window-dots" aria-hidden="true"><span></span><span></span><span></span></div>
+                <span>api.coupertech.com</span>
+                <span class="live-state"><i></i> disponible</span>
+            </div>
+            <div class="visual-content">
+                <div class="api-label">TU PRODUCTO</div>
+                <div class="connector" aria-hidden="true"><span></span></div>
+                <div class="service-stack">
+                    <div class="service-row active">
+                        <span class="mini-icon">AU</span>
+                        <div><strong>Autenticación</strong><small>Sesiones y acceso</small></div>
+                        <span class="service-check">✓</span>
+                    </div>
+                    <div class="service-row">
+                        <span class="mini-icon">SK</span>
+                        <div><strong>Secretos</strong><small>Credenciales protegidas</small></div>
+                        <span class="service-check">✓</span>
+                    </div>
+                    <div class="service-row">
+                        <span class="mini-icon">AI</span>
+                        <div><strong>Audio e idiomas</strong><small>Capacidades especializadas</small></div>
+                        <span class="service-check">✓</span>
+                    </div>
+                </div>
+                <div class="code-line"><span>POST</span> /v1/tu-servicio <b>200 OK</b></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="section services-section" id="servicios">
+    <div class="container">
+        <div class="section-heading">
+            <div>
+                <p class="eyebrow"><span></span> Servicios</p>
+                <h2>Capacidades que se integran a tu ritmo</h2>
+            </div>
+            <p>Elige únicamente lo que tu producto necesita. Cada servicio mantiene un propósito claro y un modelo de uso transparente.</p>
+        </div>
+
+        <div class="services-grid">
+            <article class="service-card featured">
+                <div class="card-top">
+                    <span class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M12 3 5 6v5c0 4.6 2.9 8.8 7 10 4.1-1.2 7-5.4 7-10V6l-7-3Zm0 4.2a2.2 2.2 0 1 1 0 4.4 2.2 2.2 0 0 1 0-4.4Zm3.5 8.2h-7v-1c0-1.4 1.6-2.2 3.5-2.2s3.5.8 3.5 2.2v1Z"/></svg>
+                    </span>
+                    <span class="model-tag">Suscripción</span>
+                </div>
+                <h3>Autenticación y sesiones</h3>
+                <p>Controla identidades, accesos y sesiones desde un servicio central preparado para tus aplicaciones.</p>
+                <ul><li>Accesos centralizados</li><li>Sesiones administradas</li><li>Credenciales M2M</li></ul>
+            </article>
+
+            <article class="service-card">
+                <div class="card-top">
+                    <span class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M8.5 11a4.5 4.5 0 1 1 4.2 4.5H11V18H9v2H5v-4.2A4.5 4.5 0 0 1 8.5 11Zm0-2A2.5 2.5 0 1 0 11 11a2.5 2.5 0 0 0-2.5-2Z"/></svg>
+                    </span>
+                    <span class="model-tag">Suscripción</span>
+                </div>
+                <h3>Gestión de secretos</h3>
+                <p>Organiza credenciales y datos sensibles con permisos definidos y una experiencia más simple.</p>
+                <ul><li>Secretos centralizados</li><li>Control de permisos</li><li>Versiones y métricas</li></ul>
+            </article>
+
+            <article class="service-card">
+                <div class="card-top">
+                    <span class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 10h2v4H4v-4Zm4-4h2v12H8V6Zm4 2h2v8h-2V8Zm4-5h2v18h-2V3Zm4 7h2v4h-2v-4Z"/></svg>
+                    </span>
+                    <span class="model-tag usage">Por consumo</span>
+                </div>
+                <h3>Transcripción de audio</h3>
+                <p>Convierte audio en texto y suma voz a tus flujos sin administrar infraestructura especializada.</p>
+                <ul><li>Procesamiento por minutos</li><li>Integración por API</li><li>Métricas de uso</li></ul>
+            </article>
+
+            <article class="service-card">
+                <div class="card-top">
+                    <span class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4Zm12.5-.5a5 5 0 0 1 0 7l-1.4-1.4a3 3 0 0 0 0-4.2l1.4-1.4Zm2.8-2.8a9 9 0 0 1 0 12.6l-1.4-1.4a7 7 0 0 0 0-9.8l1.4-1.4Z"/></svg>
+                    </span>
+                    <span class="model-tag usage">Por consumo</span>
+                </div>
+                <h3>Síntesis de voz</h3>
+                <p>Genera audio a partir de texto para experiencias accesibles, asistentes y contenido dinámico.</p>
+                <ul><li>Texto convertido en voz</li><li>Consumo medible</li><li>Respuesta lista para integrar</li></ul>
+            </article>
+
+            <article class="service-card language-card">
+                <div class="card-top">
+                    <span class="service-icon" aria-hidden="true">
+                        <svg viewBox="0 0 24 24"><path d="M4 4h7v2H6v11h5v2H4V4Zm16 0v15h-7v-2h5V6h-5V4h7Zm-9 4h2v2h3v2h-1.1a10 10 0 0 1-1.6 3l1.7 1.7-1.4 1.4-1.6-1.7a10 10 0 0 1-2.6 1.4l-.8-1.8a8 8 0 0 0 2-1L9 13.4l1.4-1.4 1.6 1.6a7 7 0 0 0 .8-1.6H8v-2h3V8Z"/></svg>
+                    </span>
+                    <span class="model-tag specialized">Especializado</span>
+                </div>
+                <h3>Aprendizaje de idiomas</h3>
+                <p>Experiencias de práctica y pronunciación que combinan tecnología con una enseñanza más cercana.</p>
+                <ul><li>Práctica guiada</li><li>Progreso observable</li><li>Experiencias interactivas</li></ul>
+            </article>
+        </div>
+    </div>
+</section>
+
+<section class="section how-section" id="como-funciona">
+    <div class="container">
+        <div class="center-heading">
+            <p class="eyebrow"><span></span> Cómo funciona</p>
+            <h2>De la necesidad a la integración</h2>
+            <p>Un camino claro para empezar sin añadir complejidad innecesaria.</p>
+        </div>
+        <div class="steps-grid">
+            <article class="step-card"><span class="step-number">01</span><h3>Elige el servicio</h3><p>Identifica la capacidad que necesitas y el modelo que corresponde a tu producto.</p></article>
+            <article class="step-card"><span class="step-number">02</span><h3>Conecta tu aplicación</h3><p>Crea tus credenciales e integra el servicio mediante una API clara.</p></article>
+            <article class="step-card"><span class="step-number">03</span><h3>Observa y crece</h3><p>Consulta métricas, administra accesos y amplía capacidades cuando lo necesites.</p></article>
+        </div>
+    </div>
+</section>
+
+<section class="section trust-section" id="confianza">
+    <div class="container trust-grid">
+        <div class="trust-copy">
+            <p class="eyebrow light"><span></span> Confianza desde el diseño</p>
+            <h2>La tecnología debe darte tranquilidad, no más trabajo.</h2>
+            <p>CouperTech organiza cada servicio con límites claros, credenciales específicas y visibilidad para que mantengas el control.</p>
+            <a class="text-link" href="/registro">Crear una cuenta <span aria-hidden="true">→</span></a>
+        </div>
+        <div class="trust-list">
+            <article><span>01</span><div><h3>Accesos con propósito</h3><p>Credenciales y permisos asociados al servicio que realmente utilizan.</p></div></article>
+            <article><span>02</span><div><h3>Secretos fuera del código</h3><p>Una capa central para administrar información sensible de manera ordenada.</p></div></article>
+            <article><span>03</span><div><h3>Uso visible</h3><p>Paneles y métricas que ayudan a comprender la actividad de cada servicio.</p></div></article>
+        </div>
+    </div>
+</section>
+
+<section class="section human-section" id="empresa">
+    <div class="container human-grid">
+        <div class="human-visual" aria-hidden="true">
+            <div class="human-circle"><span>C</span></div>
+            <div class="human-note note-one">Tecnología clara</div>
+            <div class="human-note note-two">Crecimiento acompañado</div>
+        </div>
+        <div class="human-copy">
+            <p class="eyebrow"><span></span> Una empresa nueva y cercana</p>
+            <h2>Construimos servicios para personas que también están construyendo.</h2>
+            <p>Sabemos que detrás de cada integración hay un equipo, una idea y usuarios reales. Por eso buscamos hacer la infraestructura más comprensible, accesible y humana.</p>
+            <div class="values-row"><span>Claridad</span><span>Confianza</span><span>Cercanía</span></div>
+        </div>
+    </div>
+</section>
+
+<section class="final-cta">
+    <div class="container cta-inner">
+        <div><p class="eyebrow light"><span></span> Empieza con CouperTech</p><h2>Integra capacidades. Conserva el enfoque en tu producto.</h2></div>
+        <div class="cta-actions"><a class="button button-light" href="#servicios">Explorar servicios</a><a class="button button-outline-light" href="/login">Ya tengo cuenta</a></div>
+    </div>
+</section>
+{% endblock %}

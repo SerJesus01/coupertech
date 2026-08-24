@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es-MX">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="theme-color" content="#237a57">
+    <meta name="description" content="{% block meta_description %}CouperTech reúne servicios cloud de autenticación, secretos, audio e idiomas para que tu producto avance con una integración sencilla.{% endblock %}">
+    <meta property="og:type" content="website">
+    <meta property="og:locale" content="es_MX">
+    <meta property="og:site_name" content="CouperTech">
+    <meta property="og:title" content="{% block og_title %}CouperTech | Infraestructura cloud sencilla{% endblock %}">
+    <meta property="og:description" content="Servicios cloud confiables para integrar capacidades sin construirlas desde cero.">
+    <meta property="og:url" content="https://coupertech.com/">
+    <link rel="canonical" href="https://coupertech.com/">
+    <link rel="icon" href="/static/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/static/public.css">
+    <title>{% block title %}CouperTech | Infraestructura cloud sencilla{% endblock %}</title>
+</head>
+<body>
+    <a class="skip-link" href="#contenido">Ir al contenido</a>
+
+    <header class="site-header" id="inicio">
+        <div class="container header-inner">
+            <a class="brand" href="/" aria-label="CouperTech, página principal">
+                <span class="brand-mark" aria-hidden="true">C</span>
+                <span>Couper<span class="brand-accent">Tech</span></span>
+            </a>
+
+            <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav">
+                <span class="sr-only">Abrir menú</span>
+                <span></span><span></span><span></span>
+            </button>
+
+            <nav class="main-nav" id="main-nav" aria-label="Navegación principal">
+                <a href="#servicios">Servicios</a>
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#confianza">Confianza</a>
+                <a href="#empresa">Empresa</a>
+                <a class="nav-login" href="/login">Iniciar sesión</a>
+                <a class="button button-small" href="#servicios">Explorar servicios</a>
+            </nav>
+        </div>
+    </header>
+
+    <main id="contenido">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="site-footer">
+        <div class="container footer-grid">
+            <div>
+                <a class="brand footer-brand" href="/">
+                    <span class="brand-mark" aria-hidden="true">C</span>
+                    <span>Couper<span class="brand-accent">Tech</span></span>
+                </a>
+                <p>Infraestructura cloud sencilla, confiable y construida con sentido humano.</p>
+            </div>
+            <div class="footer-links">
+                <strong>Plataforma</strong>
+                <a href="#servicios">Servicios</a>
+                <a href="#como-funciona">Cómo funciona</a>
+                <a href="#confianza">Seguridad</a>
+            </div>
+            <div class="footer-links">
+                <strong>Acceso</strong>
+                <a href="/registro">Crear cuenta</a>
+                <a href="/login">Portal de clientes</a>
+            </div>
+        </div>
+        <div class="container footer-bottom">
+            <span>&copy; 2026 CouperTech. Todos los derechos reservados.</span>
+            <span>México</span>
+        </div>
+    </footer>
+
+    <script src="/static/public.js" defer></script>
+</body>
+</html>

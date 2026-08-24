@@ -213,11 +213,11 @@ async def _resolver_sesion_y_cliente(request: Request):
     -- el caller debe `return` ese 5to elemento si no es None."""
     session_uuid = request.cookies.get("session_uuid")
     if not session_uuid:
-        return None, None, None, None, RedirectResponse(url="/")
+        return None, None, None, None, RedirectResponse(url="/login")
 
     payload = await verify_session(session_uuid)
     if not payload:
-        resp = RedirectResponse(url="/")
+        resp = RedirectResponse(url="/login")
         resp.delete_cookie("session_uuid")
         return None, None, None, None, resp
 
@@ -425,8 +425,14 @@ async def _intentar_sso_score(email: str, password: str, respuesta: JSONResponse
 # ─── Routes ───
 
 @app.get("/", response_class=HTMLResponse)
+async def home_page(request: Request):
+    """Página pública de presentación de la plataforma CouperTech."""
+    return templates.TemplateResponse(request=request, name="index.html")
+
+
+@app.get("/login", response_class=HTMLResponse)
 async def login_page(request: Request):
-    """Landing page con login."""
+    """Acceso al portal privado de clientes."""
     session_uuid = request.cookies.get("session_uuid")
     if session_uuid:
         payload = await verify_session(session_uuid)
@@ -491,11 +497,11 @@ async def suscribirse_page(request: Request, servicio: str, plan: int):
     Si no hay sesion, se manda a loguearse, no a registrarse de nuevo."""
     session_uuid = request.cookies.get("session_uuid")
     if not session_uuid:
-        return RedirectResponse(url="/")
+        return RedirectResponse(url="/login")
 
     payload = await verify_session(session_uuid)
     if not payload:
-        resp = RedirectResponse(url="/")
+        resp = RedirectResponse(url="/login")
         resp.delete_cookie("session_uuid")
         return resp
 
@@ -619,11 +625,11 @@ async def dashboard(request: Request):
     """Dashboard principal con sidebar de servicios."""
     session_uuid = request.cookies.get("session_uuid")
     if not session_uuid:
-        return RedirectResponse(url="/")
+        return RedirectResponse(url="/login")
 
     payload = await verify_session(session_uuid)
     if not payload:
-        resp = RedirectResponse(url="/")
+        resp = RedirectResponse(url="/login")
         resp.delete_cookie("session_uuid")
         return resp
 
@@ -996,7 +1002,7 @@ async def api_logout(request: Request):
         except httpx.HTTPError:
             pass
 
-    resp = RedirectResponse(url="/")
+    resp = RedirectResponse(url="/login")
     resp.delete_cookie("session_uuid")
     return resp
 
