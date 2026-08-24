@@ -79,9 +79,22 @@ SINTESIS_URL = os.getenv("SINTESIS_URL", "")
 VAULT_ADDR = os.getenv("VAULT_ADDR", "")
 VAULT_TOKEN = os.getenv("VAULT_TOKEN", "")
 
+def _navigation_session_context(request: Request) -> dict[str, bool]:
+    """Expone a las plantillas si el navegador conserva una sesión.
+
+    La validación real se mantiene en /dashboard. Evitamos consultar el
+    servicio de autenticación desde cada página pública para no retrasar la
+    landing ni volverla dependiente de la disponibilidad de authservice.
+    """
+    return {"has_portal_session": bool(request.cookies.get("session_uuid"))}
+
+
 app = FastAPI(title="CouperTech Portal")
 app.mount("/static", StaticFiles(directory="static"), name="static")
-templates = Jinja2Templates(directory="templates")
+templates = Jinja2Templates(
+    directory="templates",
+    context_processors=[_navigation_session_context],
+)
 
 _MSG_NO_AUTENTICADO = "No autenticado."
 _MSG_NO_AUTORIZADO = "No autorizado"

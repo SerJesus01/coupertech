@@ -56,6 +56,25 @@ class PublicPagesTest(unittest.TestCase):
             with self.subTest(path=path):
                 self.assertIn(f'href="{path}"', response.text)
 
+    def test_public_navigation_offers_login_without_session(self):
+        with TestClient(app) as client:
+            response = client.get("/")
+
+        self.assertIn('href="/login"', response.text)
+        self.assertIn("Iniciar sesión", response.text)
+        self.assertNotIn("Ir al dashboard", response.text)
+
+    def test_public_navigation_offers_dashboard_with_session_cookie(self):
+        with TestClient(app) as client:
+            client.cookies.set("session_uuid", "session-for-navigation-test")
+            home_response = client.get("/")
+            contact_response = client.get("/contacto")
+
+        for response in (home_response, contact_response):
+            self.assertEqual(response.status_code, 200)
+            self.assertIn('href="/dashboard"', response.text)
+            self.assertIn("Ir al dashboard", response.text)
+
 
 if __name__ == "__main__":
     unittest.main()

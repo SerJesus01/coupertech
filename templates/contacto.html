@@ -34,6 +34,6 @@
 </section>
 
 <section class="contact-options">
-    <div class="container options-grid"><article><p class="eyebrow"><span></span> ¿Ya tienes cuenta?</p><h2>Accede a tu portal.</h2><p>Administra tus servicios, métricas y credenciales desde un mismo lugar.</p><a class="button button-secondary" href="/login">Iniciar sesión</a></article><article><p class="eyebrow"><span></span> ¿Quieres comenzar?</p><h2>Crea tu cuenta.</h2><p>Registra tu acceso para conocer los servicios disponibles en la plataforma.</p><a class="button" href="/registro">Crear cuenta</a></article></div>
+    <div class="container options-grid"><article><p class="eyebrow"><span></span> ¿Ya tienes cuenta?</p><h2>Accede a tu portal.</h2><p>Administra tus servicios, métricas y credenciales desde un mismo lugar.</p><a class="button button-secondary" href="{{ '/dashboard' if has_portal_session else '/login' }}">{{ 'Ir al dashboard' if has_portal_session else 'Iniciar sesión' }}</a></article><article><p class="eyebrow"><span></span> ¿Quieres comenzar?</p><h2>Crea tu cuenta.</h2><p>Registra tu acceso para conocer los servicios disponibles en la plataforma.</p><a class="button" href="/registro">Crear cuenta</a></article></div>
 </section>
 {% endblock %}

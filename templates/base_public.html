@@ -39,7 +39,9 @@
                 <a href="/seguridad">Seguridad</a>
                 <a href="/nosotros">Nosotros</a>
                 <a href="/contacto">Contacto</a>
-                <a class="nav-login" href="/login">Iniciar sesión</a>
+                <a class="nav-login" href="{{ '/dashboard' if has_portal_session else '/login' }}">
+                    {{ 'Ir al dashboard' if has_portal_session else 'Iniciar sesión' }}
+                </a>
                 <a class="button button-small" href="/servicios">Explorar servicios</a>
             </nav>
         </div>
@@ -68,7 +70,9 @@
                 <strong>Empresa</strong>
                 <a href="/nosotros">Nosotros</a>
                 <a href="/contacto">Contacto</a>
-                <a href="/login">Portal de clientes</a>
+                <a href="{{ '/dashboard' if has_portal_session else '/login' }}">
+                    {{ 'Ir al dashboard' if has_portal_session else 'Portal de clientes' }}
+                </a>
             </div>
             <div class="footer-links">
                 <strong>Comenzar</strong>
