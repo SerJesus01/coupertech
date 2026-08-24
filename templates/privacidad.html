@@ -1,0 +1,69 @@
+{% extends "base_legal.html" %}
+
+{% block title %}Aviso de privacidad | CouperTech{% endblock %}
+{% block og_title %}Aviso de privacidad | CouperTech{% endblock %}
+{% block meta_description %}Consulta cómo CouperTech trata y protege los datos personales relacionados con sus servicios cloud.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/privacidad">
+    <link rel="canonical" href="https://coupertech.com/privacidad">
+{% endblock %}
+
+{% block legal_title %}Aviso de privacidad{% endblock %}
+{% block legal_lead %}Explicamos qué información tratamos, para qué la utilizamos y cómo puedes ejercer tus derechos sobre ella.{% endblock %}
+
+{% block legal_content %}
+<p>Este aviso integral describe el tratamiento de datos personales realizado a través del sitio, el portal de clientes, las API y los canales de soporte de CouperTech.</p>
+
+<h2>1. Identidad del responsable</h2>
+<p><strong>{{ legal_business_name }}</strong>, con domicilio en <strong>{{ legal_business_address }}</strong>, es responsable del tratamiento de los datos personales descritos en este aviso.</p>
+<div class="legal-callout"><p>Contacto de privacidad: <a href="mailto:{{ legal_contact_email }}?subject=Privacidad%20y%20derechos%20ARCO">{{ legal_contact_email }}</a>. Teléfono: {{ legal_support_phone }}.</p></div>
+
+<h2>2. Datos que podemos tratar</h2>
+<ul>
+    <li><strong>Identificación y contacto:</strong> nombre, correo electrónico, organización y datos de las personas autorizadas.</li>
+    <li><strong>Cuenta y seguridad:</strong> identificadores de usuario, contraseñas protegidas mediante hash, sesiones, roles, permisos, intentos de acceso e información necesaria para prevenir abuso.</li>
+    <li><strong>Contratación y facturación:</strong> plan, consumo, estado de pago, comprobantes y datos fiscales que proporciones. CouperTech no busca almacenar números completos de tarjeta; el procesador de pagos administra esos datos conforme a sus propias políticas.</li>
+    <li><strong>Uso y datos técnicos:</strong> dirección IP, fecha y hora, servicio consultado, métricas de consumo, eventos de seguridad, navegador y agente de usuario.</li>
+    <li><strong>Soporte:</strong> mensajes, solicitudes, aclaraciones y evidencia que decidas compartir para atenderlas.</li>
+    <li><strong>Contenido procesado:</strong> audio, texto, transcripciones, solicitudes de síntesis, respuestas de aprendizaje y secretos que envíes a los servicios contratados.</li>
+</ul>
+<p>No solicitamos datos personales sensibles para crear una cuenta. Evita incluirlos en soporte, secretos, audio o texto salvo que exista una finalidad autorizada y una base legal adecuada.</p>
+
+<h2>3. Finalidades necesarias</h2>
+<ul>
+    <li>Crear, autenticar, administrar y proteger cuentas y organizaciones.</li>
+    <li>Prestar los servicios contratados y entregar sus resultados.</li>
+    <li>Medir consumo, aplicar límites, generar facturación y gestionar pagos.</li>
+    <li>Atender soporte, solicitudes de privacidad, cancelaciones y aclaraciones.</li>
+    <li>Prevenir fraude, abuso, accesos no autorizados e incidentes de seguridad.</li>
+    <li>Cumplir obligaciones contractuales, fiscales y requerimientos de autoridad competente.</li>
+</ul>
+<p>Actualmente no usamos los datos de cuenta para publicidad personalizada ni vendemos datos personales. Si incorporamos finalidades opcionales, solicitaremos el consentimiento que corresponda y ofreceremos un mecanismo para negarlas.</p>
+
+<h2>4. Contenido de clientes</h2>
+<p>El cliente conserva sus derechos sobre el contenido enviado a la plataforma. CouperTech lo trata para prestar, asegurar y soportar el servicio solicitado, de acuerdo con la configuración de la cuenta y los acuerdos aplicables.</p>
+<p><strong>{{ legal_audio_retention_notice }}</strong></p>
+<p>Los secretos permanecen almacenados hasta que una persona autorizada los elimine, cierre la cuenta o concluya el periodo de conservación aplicable. No deben enviarse API keys, tokens o contraseñas por correo de soporte.</p>
+
+<h2>5. Encargados, remisiones y transferencias</h2>
+<p>Podemos apoyarnos en proveedores de infraestructura, seguridad, autenticación, correo, soporte y procesamiento de pagos —incluido Stripe cuando los pagos estén habilitados— para operar la plataforma. Estos proveedores deben tratar los datos únicamente para prestar sus servicios y bajo obligaciones de confidencialidad y seguridad.</p>
+<p>Algunos proveedores pueden operar fuera de México. No compartimos datos con terceros independientes para sus propios fines comerciales sin consentimiento, salvo obligación legal o los casos permitidos por la legislación aplicable.</p>
+
+<h2>6. Conservación</h2>
+<p>Conservamos los datos durante la relación contractual y posteriormente por los plazos necesarios para obligaciones legales, seguridad, facturación y resolución de reclamaciones. Las sesiones del portal tienen una duración prevista de cuatro horas, aunque pueden terminar antes por cierre de sesión, revocación o controles de seguridad.</p>
+<p>Al concluir el plazo aplicable, los datos se eliminan o anonimizan de forma segura, considerando respaldos y periodos de bloqueo exigidos por ley.</p>
+
+<h2>7. Derechos ARCO y revocación</h2>
+<p>Puedes solicitar acceso, rectificación, cancelación u oposición al tratamiento de tus datos; también puedes revocar el consentimiento o limitar su uso cuando resulte aplicable.</p>
+<p>Envía tu solicitud a <a href="mailto:{{ legal_contact_email }}?subject=Solicitud%20de%20derechos%20ARCO">{{ legal_contact_email }}</a> e incluye tu nombre, medio para recibir respuesta, derecho que deseas ejercer, descripción de los datos y la información que permita localizar tu cuenta. Podremos solicitar acreditación razonable de identidad y representación para proteger tus datos.</p>
+<p>Responderemos dentro de los plazos previstos por la legislación aplicable. Algunos datos pueden conservarse bloqueados cuando exista una obligación legal o una responsabilidad pendiente.</p>
+
+<h2>8. Seguridad y vulneraciones</h2>
+<p>Aplicamos medidas administrativas, técnicas y físicas proporcionales al riesgo, entre ellas cookies HttpOnly, separación de servicios, credenciales con alcance, control de permisos y gestión especializada de secretos. Ningún sistema es infalible; cuando una vulneración afecte significativamente tus derechos, te informaremos conforme a la ley.</p>
+
+<h2>9. Personas menores de edad</h2>
+<p>El portal comercial y las API están dirigidos a personas con capacidad legal y representantes de organizaciones. Si un producto educativo se ofrece directamente a menores, deberá contar con reglas, avisos y mecanismos de consentimiento específicos antes de su lanzamiento.</p>
+
+<h2>10. Cambios al aviso</h2>
+<p>Publicaremos los cambios en esta misma dirección e indicaremos la fecha de actualización. Cuando el cambio requiera consentimiento o afecte materialmente el tratamiento, utilizaremos un aviso adicional por el portal, correo u otro medio disponible.</p>
+{% endblock %}

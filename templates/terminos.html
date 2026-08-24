@@ -1,0 +1,69 @@
+{% extends "base_legal.html" %}
+
+{% block title %}Términos de servicio | CouperTech{% endblock %}
+{% block og_title %}Términos de servicio | CouperTech{% endblock %}
+{% block meta_description %}Consulta las condiciones generales para utilizar el portal, las API y los servicios cloud de CouperTech.{% endblock %}
+{% block social_url %}
+    <meta property="og:url" content="https://coupertech.com/terminos">
+    <link rel="canonical" href="https://coupertech.com/terminos">
+{% endblock %}
+
+{% block legal_title %}Términos de servicio{% endblock %}
+{% block legal_lead %}Estas condiciones establecen las reglas generales para cuentas, API, servicios por consumo y suscripciones de CouperTech.{% endblock %}
+
+{% block legal_content %}
+<p>Estos términos forman un acuerdo entre quien contrata o utiliza los servicios (“Cliente”) y <strong>{{ legal_business_name }}</strong> (“CouperTech”). Al crear una cuenta, aceptar una orden o utilizar un servicio, el Cliente manifiesta haber leído estas condiciones.</p>
+
+<h2>1. Identidad y contacto</h2>
+<p>CouperTech tiene domicilio en {{ legal_business_address }}. Para soporte, aclaraciones o reclamaciones están disponibles <a href="mailto:{{ legal_contact_email }}">{{ legal_contact_email }}</a> y {{ legal_support_phone }}.</p>
+
+<h2>2. Servicios</h2>
+<p>CouperTech ofrece capacidades cloud mediante portal y API, incluyendo autenticación y sesiones, gestión de secretos, transcripción de audio, síntesis de audio y herramientas para aprendizaje de idiomas. Cada servicio puede tener documentación, límites, niveles de acceso y condiciones particulares mostradas antes de contratar.</p>
+<p>Las funciones identificadas como beta, prueba o vista previa pueden cambiar y no deben utilizarse para cargas críticas sin un acuerdo específico.</p>
+
+<h2>3. Registro y cuentas</h2>
+<ul>
+    <li>La información de registro debe ser correcta, vigente y pertenecer a una persona autorizada por la organización.</li>
+    <li>El Cliente es responsable de proteger contraseñas, API keys y dispositivos con acceso a la cuenta.</li>
+    <li>Las credenciales son personales o específicas de una integración y no deben publicarse ni compartirse fuera del alcance autorizado.</li>
+    <li>El Cliente debe informar de inmediato cualquier acceso, cargo o uso no reconocido.</li>
+</ul>
+
+<h2>4. Contratación, precios y pagos</h2>
+<p>Algunos servicios se cobran por consumo —por ejemplo, minutos de transcripción o unidades de síntesis— y otros mediante mensualidades, como autenticación o gestión de secretos. Antes de confirmar un pago se mostrará el precio o método de cálculo, moneda, impuestos aplicables, periodicidad, fecha de cobro y cualquier cargo adicional.</p>
+<p>Los cobros recurrentes requieren aceptación expresa. Cuando exista renovación automática, CouperTech notificará al menos cinco días naturales antes y permitirá cancelar sin penalización conforme a la <a href="/cancelaciones-y-reembolsos">política de cancelaciones y reembolsos</a>.</p>
+
+<h2>5. Uso permitido</h2>
+<p>El Cliente puede usar los servicios para fines legítimos y conforme a la documentación. No puede:</p>
+<ul>
+    <li>Acceder sin autorización a cuentas, redes, datos o sistemas.</li>
+    <li>Distribuir malware, abusar de vulnerabilidades o eludir límites técnicos.</li>
+    <li>Utilizar el servicio para fraude, suplantación, acoso o contenido ilícito.</li>
+    <li>Realizar ingeniería inversa o reventa no autorizada, salvo lo permitido expresamente por ley o contrato.</li>
+    <li>Enviar datos o contenido sin contar con derechos, avisos y consentimientos necesarios.</li>
+</ul>
+
+<h2>6. Contenido y datos del Cliente</h2>
+<p>El Cliente conserva la titularidad de su contenido. Otorga a CouperTech la autorización limitada necesaria para recibirlo, procesarlo, protegerlo y devolver resultados durante la prestación del servicio. El tratamiento de datos personales se describe en el <a href="/privacidad">aviso de privacidad</a>.</p>
+<p>El Cliente es responsable de definir qué contenido envía, conservar respaldos cuando corresponda y verificar que su integración cumpla las leyes aplicables.</p>
+
+<h2>7. Propiedad intelectual</h2>
+<p>CouperTech y sus licenciantes conservan los derechos sobre la plataforma, diseño, documentación, marcas, software y componentes propios. Estos términos no transfieren propiedad intelectual; únicamente conceden el derecho limitado de utilizar los servicios contratados.</p>
+
+<h2>8. Disponibilidad y cambios</h2>
+<p>Trabajamos para ofrecer servicios confiables, pero pueden ocurrir mantenimientos, fallas de proveedores o eventos fuera de control razonable. Cuando sea posible, comunicaremos mantenimientos relevantes. Los compromisos específicos de disponibilidad sólo aplican si constan en un acuerdo de nivel de servicio.</p>
+<p>Podemos actualizar funciones para mejorar seguridad, cumplimiento o desempeño, procurando no reducir materialmente un servicio pagado durante el periodo contratado sin ofrecer una alternativa razonable.</p>
+
+<h2>9. Suspensión y terminación</h2>
+<p>Podemos limitar o suspender el acceso cuando exista riesgo de seguridad, falta de pago, uso ilícito o incumplimiento material. Cuando el riesgo lo permita, avisaremos y daremos oportunidad razonable de corregirlo. El Cliente puede cancelar conforme a la política publicada y solicitar el cierre de su cuenta.</p>
+
+<h2>10. Garantías y responsabilidad</h2>
+<p>CouperTech prestará los servicios conforme a las características ofrecidas y a la legislación aplicable. Salvo garantía expresa, los resultados automatizados deben ser revisados antes de utilizarse en decisiones críticas.</p>
+<p>Ninguna disposición pretende excluir derechos irrenunciables de consumidores ni responsabilidades que legalmente no puedan limitarse. En los demás casos, cada parte responderá por los daños directos que le sean imputables conforme al acuerdo y la ley aplicable.</p>
+
+<h2>11. Cambios a los términos</h2>
+<p>Publicaremos la versión actualizada y su fecha. Los cambios materiales aplicables a servicios pagados se comunicarán por un medio disponible antes de entrar en vigor. Si el Cliente no acepta un cambio material, podrá cancelar futuras renovaciones.</p>
+
+<h2>12. Legislación y controversias</h2>
+<p>Estos términos se interpretan conforme a las leyes aplicables en México. Las partes buscarán resolver primero cualquier aclaración mediante los canales de soporte. Esto no limita el derecho de acudir a la Procuraduría Federal del Consumidor u otra autoridad competente.</p>
+{% endblock %}
