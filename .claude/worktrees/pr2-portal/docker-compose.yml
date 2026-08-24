@@ -1,0 +1,34 @@
+version: '3.8'
+
+services:
+  portal:
+    build: .
+    container_name: coupertech-portal
+    restart: unless-stopped
+    ports:
+      - "8081:8080"
+    environment:
+      AUTH_SERVICE_URL: http://192.168.1.50:8000
+      # couper/gestor-apikeys: unico servicio que genera/gestiona
+      # credenciales M2M de la plataforma (extraido de authservise el
+      # 08/jul/2026) -- ver GESTOR_APIKEYS_URL en main.py.
+      GESTOR_APIKEYS_URL: http://192.168.1.50:8030
+      # couper/catalago: metadata de servicios (nombre/descripcion/icono).
+      # El portal ya no tiene credenciales de Postgres propias -- todo lo
+      # que antes era SQL directo a metrics_vault_db ahora sale de
+      # authservice (GET /auth/mis-servicios) + catalago (GET /servicios).
+      CATALAGO_URL: http://192.168.1.50:8083
+      # Slug con el que este portal se identifica ante el login GENERICO de
+      # authservice (POST /auth/login) -- ver SERVICIO_SLUG en main.py.
+      SERVICIO_SLUG: portal
+      # Site key de Cloudflare Turnstile (publica; secret vive solo en
+      # authservice/Vault). Sin esto el widget no se renderiza y el boton
+      # de login queda habilitado igual (el servidor de authservice sigue
+      # exigiendo turnstile_token para servicio=portal).
+      TURNSTILE_SITE_KEY: "${TURNSTILE_SITE_KEY:-}"
+      SESSION_TTL: "3600"
+    deploy:
+      resources:
+        limits:
+          memory: 200M
+          cpus: "0.5"

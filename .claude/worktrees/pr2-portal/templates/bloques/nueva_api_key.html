@@ -1,0 +1,39 @@
+        <div class="section">
+            {% if config.nueva_api_key.nombre_display %}
+            <h2>Generar una nueva API Key de {{ config.nueva_api_key.nombre_display }}</h2>
+            {% else %}
+            <h2>Generar una nueva API Key</h2>
+            {% endif %}
+            <div id="msgAltaAplicacion" class="msg"></div>
+            <form class="form-alta" id="formAltaAplicacion" onsubmit="return crearAplicacion(event)">
+                <input type="hidden" id="nuevoServicioApp" value="{{ config.metricas_servicio_nombre or 'acceso-general' }}">
+                <input type="text" id="nuevoNombreApp" placeholder="Nombre de la aplicación (ej. app-facturacion)" required>
+                {% if config.nueva_api_key.opciones_scope|length > 1 %}
+                <select id="nuevoScopeApp" title="Permisos de esta credencial">
+                    {% for valor, etiqueta in config.nueva_api_key.opciones_scope %}
+                    <option value="{{ valor }}">{{ etiqueta }}</option>
+                    {% endfor %}
+                </select>
+                {% else %}
+                <input type="hidden" id="nuevoScopeApp" value="{{ config.nueva_api_key.opciones_scope[0][0] }}">
+                {% endif %}
+                <select id="nuevoVigenciaApp" title="Vigencia de esta credencial" required>
+                    <option value="30">30 días</option>
+                    <option value="60">60 días</option>
+                    <option value="90">90 días</option>
+                    <option value="unico">Uso único</option>
+                </select>
+                <button type="submit" class="btn-primario">Generar API Key</button>
+            </form>
+            <p style="font-size:13px;color:#999;margin-top:8px;">
+                Elegí cuánto tiempo va a estar activa esta credencial (o "uso único" si solo la
+                vas a usar una vez) — pasada la vigencia, deja de funcionar automáticamente.
+            </p>
+            {% if config.nueva_api_key.opciones_scope|length > 1 %}
+            <p style="font-size:13px;color:#999;margin-top:8px;">
+                Usá "solo lectura" para darle acceso a un empleado sin depender de la misma
+                credencial que el resto — si esa credencial se bloquea o se revoca, no afecta
+                a nadie más de tu organización.
+            </p>
+            {% endif %}
+        </div>

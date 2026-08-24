@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouperTech - Métricas {{ config.titulo_topbar }}</title>
+    <link rel="stylesheet" href="/static/metricas.css">
+</head>
+<body>
+{% include "bloques/topbar.html" %}
+
+    <div class="main">
+        <div class="stats">
+{% include config.template_stats_propias %}
+{% include "bloques/stat_facturacion.html" %}
+        </div>
+
+{% for bloque in config.bloques_extra_html %}
+{% include bloque %}
+{% endfor %}
+{% if config.api_keys %}
+{% include "bloques/api_keys.html" %}
+{% include "bloques/nueva_api_key.html" %}
+{% include "bloques/documentacion.html" %}
+{% endif %}
+    </div>
+
+{% if config.api_keys %}
+{% include "bloques/modal_secreto.html" %}
+{% endif %}
+
+    <script src="/static/metricas.js"></script>
+    {% if config.template_scripts_extra %}
+    <script>
+{% include config.template_scripts_extra %}
+    </script>
+    {% endif %}
+    {% if config.api_keys %}
+    <script src="/static/aplicaciones.js"></script>
+    {% endif %}
+<script src="/static/session-refresh.js"></script>
+</body>
+</html>

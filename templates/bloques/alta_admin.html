@@ -1,0 +1,16 @@
+        <div class="section">
+            <h2>Agregar administrador</h2>
+            <div class="msg" style="background:rgba(251,191,36,0.12);color:#92620a;display:block;margin-bottom:16px;">
+                ⚠️ Los usuarios que agregues aquí tendrán <strong>rol de administrador</strong> y
+                podrán acceder a este panel de métricas (ver sesiones, usuarios, facturación y
+                agregar/eliminar otros administradores). Para dar de alta empleados o usuarios
+                normales de tu organización, usá el registro general de login — no este formulario.
+            </div>
+            <div id="msgAlta" class="msg"></div>
+            <form class="form-alta" id="formAlta" onsubmit="return crearUsuario(event)">
+                <input type="text" id="nuevoNombre" placeholder="Nombre completo" required>
+                <input type="email" id="nuevoEmail" placeholder="Correo" required>
+                <input type="password" id="nuevoPassword" placeholder="Contraseña" required minlength="8">
+                <button type="submit" class="btn-primario">Crear administrador</button>
+            </form>
+        </div>

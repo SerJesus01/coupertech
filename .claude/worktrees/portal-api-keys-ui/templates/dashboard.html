@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouperTech - Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+               background: #f5f6fa; min-height: 100vh; display: flex; }
+        /* Sidebar */
+        .sidebar { width: 260px; background: linear-gradient(180deg, #1a1a2e 0%, #302b63 100%);
+                   color: white; display: flex; flex-direction: column; min-height: 100vh;
+                   position: fixed; left: 0; top: 0; }
+        .sidebar-header { padding: 24px 20px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-header h2 { font-size: 22px; }
+        .sidebar-header h2 span { color: #e94560; }
+        .sidebar-header p { font-size: 12px; color: rgba(255,255,255,0.6); margin-top: 2px; }
+        .sidebar-user { padding: 16px 20px; border-bottom: 1px solid rgba(255,255,255,0.1);
+                        font-size: 13px; color: rgba(255,255,255,0.7); }
+        .sidebar-user strong { color: white; display: block; font-size: 14px; }
+        .nav { padding: 12px 0; flex: 1; }
+        .nav-item { display: flex; align-items: center; padding: 14px 20px; margin: 2px 8px;
+                    border-radius: 8px; cursor: pointer; transition: all 0.2s;
+                    text-decoration: none; color: rgba(255,255,255,0.7); position: relative; }
+        .nav-item:hover { background: rgba(255,255,255,0.1); color: white; }
+        .nav-item.active { background: rgba(255,255,255,0.15); color: white; }
+        .nav-item .icon { width: 36px; height: 36px; border-radius: 8px;
+                          display: flex; align-items: center; justify-content: center;
+                          margin-right: 12px; font-size: 18px; }
+        .nav-item .icon.shield { background: rgba(233,69,96,0.2); color: #e94560; }
+        .nav-item .icon.chart { background: rgba(52,211,153,0.2); color: #34d399; }
+        .nav-item .icon.ticket { background: rgba(96,165,250,0.2); color: #60a5fa; }
+        .nav-item .service-info { flex: 1; }
+        .nav-item .service-name { font-size: 14px; font-weight: 600; display: block; }
+        .nav-item .service-status { font-size: 11px; margin-top: 2px; }
+        .badge { font-size: 10px; padding: 2px 8px; border-radius: 10px;
+                 text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+        .badge.registered { background: rgba(52,211,153,0.2); color: #34d399; }
+        .badge.pending { background: rgba(251,191,36,0.2); color: #fbbf24; }
+        .sidebar-footer { padding: 16px 20px; border-top: 1px solid rgba(255,255,255,0.1); }
+        .btn-logout { display: flex; align-items: center; gap: 8px; padding: 10px 16px;
+                      border-radius: 8px; border: 1px solid rgba(255,255,255,0.2);
+                      background: transparent; color: rgba(255,255,255,0.7); width: 100%;
+                      cursor: pointer; font-size: 13px; transition: all 0.2s; }
+        .btn-logout:hover { background: rgba(233,69,96,0.2); border-color: #e94560; color: #e94560; }
+        /* Main */
+        .main { margin-left: 260px; flex: 1; padding: 40px; }
+        .welcome h1 { font-size: 28px; color: #1a1a2e; margin-bottom: 8px; }
+        .welcome p { color: #666; font-size: 16px; max-width: 600px; line-height: 1.6; }
+        .welcome .highlight { color: #e94560; font-weight: 600; }
+        .section-title { font-size: 18px; font-weight: 700; color: #1a1a2e;
+                         margin: 36px 0 20px; display: flex; align-items: center; gap: 10px; }
+        .section-title span { font-size: 13px; font-weight: 400; color: #999; }
+        .cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+                 gap: 24px; margin-top: 32px; }
+        .card { background: white; border-radius: 12px; padding: 28px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.06); transition: transform 0.2s, box-shadow 0.2s;
+                cursor: pointer; border: 2px solid transparent; }
+        .card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.1); }
+        .card.registered { border-color: #34d399; }
+        .card.pending { border-color: #fbbf24; }
+        .card-icon { width: 48px; height: 48px; border-radius: 12px;
+                     display: flex; align-items: center; justify-content: center;
+                     font-size: 24px; margin-bottom: 16px; }
+        .card-icon.shield { background: rgba(233,69,96,0.1); color: #e94560; }
+        .card-icon.chart { background: rgba(52,211,153,0.1); color: #34d399; }
+        .card-icon.ticket { background: rgba(96,165,250,0.1); color: #60a5fa; }
+        .card h3 { font-size: 18px; color: #1a1a2e; margin-bottom: 8px; }
+        .card p { font-size: 14px; color: #666; line-height: 1.5; }
+        .card .card-footer { margin-top: 16px; display: flex; justify-content: space-between;
+                             align-items: center; }
+        .card .card-link { font-size: 14px; font-weight: 600; text-decoration: none; }
+        .card.registered .card-link { color: #34d399; }
+        .card.pending .card-link { color: #fbbf24; }
+        .toast { display: none; position: fixed; bottom: 24px; right: 24px;
+                 background: #1a1a2e; color: white; padding: 16px 24px; border-radius: 8px;
+                 font-size: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+                 animation: slideIn 0.3s ease; z-index: 1000; }
+        .toast.show { display: block; }
+        @keyframes slideIn { from { transform: translateY(20px); opacity: 0; }
+                              to { transform: translateY(0); opacity: 1; } }
+        /* Loading skeleton */
+        .loading-skeleton { text-align: center; padding: 60px; color: #999; }
+        .spinner-page { width: 40px; height: 40px; border: 4px solid #e0e0e0;
+                        border-radius: 50%; border-top-color: #302b63;
+                        animation: spin 0.8s linear infinite; margin: 0 auto 16px; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar { width: 100%; min-height: auto; position: relative; }
+            .main { margin-left: 0; padding: 20px; }
+            .cards { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2>Couper<span>Tech</span></h2>
+            <p>Plataforma Cloud</p>
+        </div>
+        <div class="sidebar-user">
+            Bienvenido, <strong id="userName">{{ user.get('nombre') or user.get('email', 'Usuario') }}</strong>
+            <span id="userEmail" style="font-size:12px">{{ user.get('email', '') }}</span>
+        </div>
+        <nav class="nav" id="serviciosNav">
+            {% for s in servicios %}
+            <a class="nav-item {{ 'active' if loop.first else '' }}"
+               href="#" onclick="return navigateTo('{{ s.slug }}')"
+               data-slug="{{ s.slug }}">
+                <div class="icon {{ s.icono }}">{% if s.icono == 'shield' %}🔐{% elif s.icono == 'chart' %}📊{% elif s.icono == 'ticket' %}🎫{% else %}⚙️{% endif %}</div>
+                <div class="service-info">
+                    <span class="service-name">{{ s.nombre }}</span>
+                    <span class="service-status">
+                        {% if s.registrado %}
+                        <span class="badge registered">Activo</span>
+                        {% else %}
+                        <span class="badge pending">Pendiente</span>
+                        {% endif %}
+                    </span>
+                </div>
+            </a>
+            {% endfor %}
+        </nav>
+        <div class="sidebar-footer">
+            <a href="/metricas" class="btn-logout" style="margin-bottom:8px;text-decoration:none;">⚙️ Métricas Authservise</a>
+            <form action="/api/logout" method="POST" id="logoutForm">
+                <button type="submit" class="btn-logout">🚪 Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="main">
+        <div class="welcome">
+            <h1>Bienvenido a CouperTech</h1>
+            <p>
+                Tu plataforma de <span class="highlight">gestión de secretos empresariales</span>
+                con la seguridad de HashiCorp Vault y el poder de nuestras métricas inteligentes.
+            </p>
+        </div>
+
+        <div class="section-title">
+            Nuestros servicios
+            <span>{{ todos_servicios | length }} disponibles</span>
+        </div>
+
+        <div class="cards">
+            {% for s in todos_servicios %}
+            <div class="card {{ 'registered' if s.registrado else 'pending' }}"
+                 onclick="navigateTo('{{ s.slug }}')">
+                <div class="card-icon {{ s.icono }}">
+                    {% if s.icono == 'shield' %}🔐{% elif s.icono == 'chart' %}📊{% elif s.icono == 'ticket' %}🎫{% else %}⚙️{% endif %}
+                </div>
+                <h3>{{ s.nombre }}</h3>
+                <p>{{ s.descripcion }}</p>
+                <div class="card-footer">
+                    {% if s.registrado %}
+                    <a href="#" class="card-link" onclick="event.stopPropagation(); navigateTo('{{ s.slug }}')">Acceder →</a>
+                    <span class="badge registered">Activo</span>
+                    {% else %}
+                    <a href="/planes/{{ s.slug }}" class="card-link" onclick="event.stopPropagation()">Ver planes →</a>
+                    <span class="badge pending">No suscrito</span>
+                    {% endif %}
+                </div>
+            </div>
+            {% else %}
+            <div style="grid-column:1/-1;text-align:center;padding:60px;color:#999">
+                No hay servicios disponibles en este momento.
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="toast" id="toast"></div>
+
+    <script>
+        async function navigateTo(slug) {
+            const toast = document.getElementById('toast');
+            toast.textContent = 'Procesando...';
+            toast.className = 'toast show';
+
+            try {
+                const resp = await fetch('/api/redirect-to-service', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ slug })
+                });
+                const data = await resp.json();
+
+                if (data.redirect) {
+                    toast.textContent = data.mensaje || 'Redirigiendo...';
+                    setTimeout(() => {
+                        window.location.href = data.url;
+                    }, 1000);
+                } else {
+                    toast.textContent = 'Error: ' + (data.error || 'desconocido');
+                    setTimeout(() => toast.className = 'toast', 3000);
+                }
+            } catch (err) {
+                toast.textContent = 'Error de conexión';
+                setTimeout(() => toast.className = 'toast', 3000);
+            }
+            return false;
+        }
+
+        // Highlight active nav item
+        document.querySelectorAll('.nav-item').forEach(item => {
+            item.addEventListener('click', function() {
+                document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+                this.classList.add('active');
+            });
+        });
+    </script>
+</body>
+</html>

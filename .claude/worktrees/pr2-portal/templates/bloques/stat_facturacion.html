@@ -1,0 +1,11 @@
+            <div class="stat-card facturacion">
+                {% if suscripcion.suscrito %}
+                <div class="valor">Plan {{ suscripcion.plan_nombre }} — ${{ "%.2f"|format(suscripcion.precio_cents / 100) }}/mes</div>
+                <div class="etiqueta">Facturación</div>
+                <a class="btn-pago" href="/planes/{{ config.servicio_slug_catalago }}">Ver otros planes →</a>
+                {% else %}
+                <div class="valor">Sin plan contratado</div>
+                <div class="etiqueta">Facturación</div>
+                <a class="btn-pago" href="/planes/{{ config.servicio_slug_catalago }}">Ver planes y suscribirme →</a>
+                {% endif %}
+            </div>

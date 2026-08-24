@@ -1,0 +1,27 @@
+        <div class="section">
+            <h2>Usuarios (última actividad)</h2>
+            <div id="msgUsuarios" class="msg"></div>
+            <table>
+                <thead>
+                    <tr><th>Email</th><th>Nombre</th><th>Rol</th><th>Última actividad</th><th></th></tr>
+                </thead>
+                <tbody id="tablaUsuarios">
+                    {% for u in usuarios %}
+                    <tr data-identidad-id="{{ u.identidad_id }}">
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.nombre or "—" }}</td>
+                        <td><span class="rol-badge {{ u.rol }}">{{ u.rol }}</span></td>
+                        <td class="ultima-actividad" data-ts="{{ u.ultima_actividad or '' }}">—</td>
+                        <td>
+                            <button class="btn-eliminar" onclick="eliminarUsuario({{ u.identidad_id }})"
+                                    {% if u.email == user.email %}disabled title="No podés eliminarte a vos mismo"{% endif %}>
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" style="text-align:center;color:#999;padding:24px">Sin usuarios todavía.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>

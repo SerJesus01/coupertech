@@ -1,0 +1,11 @@
+            {% if metricas_transcripcion %}
+            <div class="stat-card">
+                <div class="valor">{{ metricas_transcripcion.minutos_procesados }}</div>
+                <div class="etiqueta">Minutos de audio procesados</div>
+            </div>
+            {% else %}
+            <div class="stat-card">
+                <div class="valor" style="font-size:16px;color:#999;">Servicio no disponible</div>
+                <div class="etiqueta">No se pudieron cargar las métricas ahora mismo</div>
+            </div>
+            {% endif %}

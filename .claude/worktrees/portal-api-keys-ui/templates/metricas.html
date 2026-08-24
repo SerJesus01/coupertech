@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouperTech - Métricas Authservise</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+               background: #f5f6fa; color: #1a1a2e; }
+        .topbar { background: linear-gradient(135deg, #1a1a2e 0%, #302b63 100%);
+                  color: white; padding: 20px 40px; display: flex;
+                  align-items: center; justify-content: space-between; }
+        .topbar h1 { font-size: 22px; }
+        .topbar h1 span { color: #e94560; }
+        .topbar .volver { color: rgba(255,255,255,0.8); text-decoration: none; font-size: 14px;
+                           border: 1px solid rgba(255,255,255,0.3); padding: 8px 16px; border-radius: 8px; }
+        .topbar .volver:hover { background: rgba(255,255,255,0.1); }
+        .main { max-width: 1100px; margin: 0 auto; padding: 32px 24px; }
+        .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+                  gap: 20px; margin-bottom: 32px; }
+        .stat-card { background: white; border-radius: 12px; padding: 24px;
+                     box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .stat-card .valor { font-size: 32px; font-weight: 700; color: #302b63; }
+        .stat-card .etiqueta { font-size: 13px; color: #666; margin-top: 4px; }
+        .stat-card.facturacion .valor { color: #999; font-size: 18px; }
+        .section { background: white; border-radius: 12px; padding: 28px;
+                    box-shadow: 0 2px 8px rgba(0,0,0,0.06); margin-bottom: 24px; }
+        .section h2 { font-size: 17px; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; font-size: 14px; }
+        th { text-align: left; padding: 10px 12px; color: #666; font-weight: 600;
+             border-bottom: 2px solid #f0f0f0; font-size: 12px; text-transform: uppercase; }
+        td { padding: 12px; border-bottom: 1px solid #f5f5f5; }
+        .rol-badge { font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 700;
+                     text-transform: uppercase; }
+        .rol-badge.admin { background: rgba(233,69,96,0.15); color: #e94560; }
+        .rol-badge.empleado { background: rgba(96,165,250,0.15); color: #60a5fa; }
+        .btn-eliminar { background: none; border: 1px solid #e94560; color: #e94560;
+                        padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .btn-eliminar:hover { background: #e94560; color: white; }
+        .btn-eliminar:disabled { opacity: 0.4; cursor: not-allowed; }
+        .form-alta { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; }
+        .form-alta input, .form-alta select { padding: 10px 12px; border: 2px solid #e0e0e0;
+                        border-radius: 8px; font-size: 14px; outline: none; }
+        .form-alta input:focus, .form-alta select:focus { border-color: #302b63; }
+        .btn-primario { background: linear-gradient(135deg, #302b63, #24243e); color: white;
+                        border: none; padding: 10px 20px; border-radius: 8px; font-size: 14px;
+                        font-weight: 600; cursor: pointer; grid-column: 1 / -1; }
+        .btn-primario:hover { transform: translateY(-1px); }
+        .btn-pago { display: inline-block; margin-top: 12px; background: rgba(52,211,153,0.1);
+                    color: #059669; border: 1px solid #34d399; padding: 10px 18px;
+                    border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; }
+        .btn-pago:hover { background: #34d399; color: white; }
+        .msg { font-size: 13px; padding: 10px 14px; border-radius: 8px; margin-bottom: 16px; display: none; }
+        .msg.error { background: #fff0f0; color: #e94560; display: block; }
+        .msg.ok { background: rgba(52,211,153,0.1); color: #059669; display: block; }
+        .ultima-actividad { color: #999; font-size: 13px; }
+        code { background: #f0f0f5; padding: 2px 6px; border-radius: 4px; font-size: 12px; }
+        .estado-badge { font-size: 11px; padding: 2px 10px; border-radius: 10px; font-weight: 700;
+                     text-transform: uppercase; }
+        .estado-badge.activo { background: rgba(52,211,153,0.15); color: #059669; }
+        .estado-badge.inactivo { background: rgba(233,69,96,0.15); color: #e94560; }
+        .acciones { display: flex; gap: 6px; flex-wrap: wrap; }
+        .btn-accion { background: none; border: 1px solid #302b63; color: #302b63;
+                        padding: 6px 12px; border-radius: 6px; font-size: 12px; cursor: pointer; }
+        .btn-accion:hover { background: #302b63; color: white; }
+        .fecha { color: #999; font-size: 13px; }
+        pre { background: #1a1a2e; color: #e0e0f0; padding: 16px; border-radius: 8px;
+              font-size: 12px; overflow-x: auto; margin-top: 10px; }
+        .overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5);
+                   align-items: center; justify-content: center; z-index: 100; }
+        .overlay.visible { display: flex; }
+        .modal { background: white; border-radius: 12px; padding: 28px; max-width: 520px; width: 90%; }
+        .modal h3 { margin-bottom: 12px; }
+        .modal .secreto-box { background: #f0f0f5; padding: 12px; border-radius: 8px;
+                                font-family: monospace; font-size: 13px; word-break: break-all;
+                                margin: 12px 0; }
+        .modal .aviso { background: #fff8e1; color: #92620a; padding: 10px 14px;
+                         border-radius: 8px; font-size: 13px; margin-bottom: 12px; }
+        .modal .btn-cerrar { margin-top: 16px; }
+    </style>
+</head>
+<body>
+    <div class="topbar">
+        <h1>Couper<span>Tech</span> · Métricas Authservise · {{ cliente.nombre_equipo }}</h1>
+        <a class="volver" href="/dashboard">← Volver al dashboard</a>
+    </div>
+
+    <div class="main">
+        <div class="stats">
+            <div class="stat-card">
+                <div class="valor">{{ metricas.sesiones_activas }}</div>
+                <div class="etiqueta">Sesiones activas ahora</div>
+            </div>
+            <div class="stat-card">
+                <div class="valor">{{ metricas.total_usuarios }}</div>
+                <div class="etiqueta">Usuarios en la organización</div>
+            </div>
+            <div class="stat-card facturacion">
+                {% if suscripcion.suscrito %}
+                <div class="valor">Plan {{ suscripcion.plan_nombre }} — ${{ "%.2f"|format(suscripcion.precio_cents / 100) }}/mes</div>
+                <div class="etiqueta">Facturación</div>
+                <a class="btn-pago" href="/planes/auth">Ver otros planes →</a>
+                {% else %}
+                <div class="valor">Sin plan contratado</div>
+                <div class="etiqueta">Facturación</div>
+                <a class="btn-pago" href="/planes/auth">Ver planes y suscribirme →</a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Usuarios (última actividad)</h2>
+            <div id="msgUsuarios" class="msg"></div>
+            <table>
+                <thead>
+                    <tr><th>Email</th><th>Nombre</th><th>Rol</th><th>Última actividad</th><th></th></tr>
+                </thead>
+                <tbody id="tablaUsuarios">
+                    {% for u in usuarios %}
+                    <tr data-identidad-id="{{ u.identidad_id }}">
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.nombre or "—" }}</td>
+                        <td><span class="rol-badge {{ u.rol }}">{{ u.rol }}</span></td>
+                        <td class="ultima-actividad" data-ts="{{ u.ultima_actividad or '' }}">—</td>
+                        <td>
+                            <button class="btn-eliminar" onclick="eliminarUsuario({{ u.identidad_id }})"
+                                    {% if u.email == user.email %}disabled title="No podés eliminarte a vos mismo"{% endif %}>
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="5" style="text-align:center;color:#999;padding:24px">Sin usuarios todavía.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Agregar administrador</h2>
+            <div class="msg" style="background:rgba(251,191,36,0.12);color:#92620a;display:block;margin-bottom:16px;">
+                ⚠️ Los usuarios que agregues aquí tendrán <strong>rol de administrador</strong> y
+                podrán acceder a este panel de métricas (ver sesiones, usuarios, facturación y
+                agregar/eliminar otros administradores). Para dar de alta empleados o usuarios
+                normales de tu organización, usá el registro general de login — no este formulario.
+            </div>
+            <div id="msgAlta" class="msg"></div>
+            <form class="form-alta" id="formAlta" onsubmit="return crearUsuario(event)">
+                <input type="text" id="nuevoNombre" placeholder="Nombre completo" required>
+                <input type="email" id="nuevoEmail" placeholder="Correo" required>
+                <input type="password" id="nuevoPassword" placeholder="Contraseña" required minlength="8">
+                <button type="submit" class="btn-primario">Crear administrador</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>API Keys (aplicaciones de terceros)</h2>
+            <div id="msgAplicaciones" class="msg"></div>
+            <table>
+                <thead>
+                    <tr><th>Nombre</th><th>Client ID</th><th>Estado</th><th>Creada</th><th>Último uso</th><th></th></tr>
+                </thead>
+                <tbody id="tablaAplicaciones">
+                    {% for a in aplicaciones %}
+                    <tr data-client-id="{{ a.client_id }}">
+                        <td>{{ a.nombre }}</td>
+                        <td><code>{{ a.client_id }}</code></td>
+                        <td><span class="estado-badge {{ 'activo' if a.activo else 'inactivo' }}">{{ 'activo' if a.activo else 'inactivo' }}</span></td>
+                        <td class="fecha" data-ts="{{ a.created_at or '' }}">—</td>
+                        <td class="fecha" data-ts="{{ a.last_used_at or '' }}">{{ 'Nunca' if not a.last_used_at else '—' }}</td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn-accion" onclick="rotarSecreto('{{ a.client_id }}')">Rotar secreto</button>
+                                {% if a.activo %}
+                                <button class="btn-accion" onclick="desactivarAplicacion('{{ a.client_id }}')">Desactivar</button>
+                                {% else %}
+                                <button class="btn-accion" onclick="reactivarAplicacion('{{ a.client_id }}')">Reactivar</button>
+                                {% endif %}
+                                <button class="btn-eliminar" onclick="eliminarAplicacion('{{ a.client_id }}')">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" style="text-align:center;color:#999;padding:24px">Todavía no tenés aplicaciones.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Generar una nueva API Key</h2>
+            <div id="msgAltaAplicacion" class="msg"></div>
+            <form class="form-alta" id="formAltaAplicacion" onsubmit="return crearAplicacion(event)">
+                <input type="text" id="nuevoNombreApp" placeholder="Nombre de la aplicación (ej. app-facturacion)" required>
+                <button type="submit" class="btn-primario">Generar API Key</button>
+            </form>
+        </div>
+
+        <div class="section">
+            <h2>Cómo usar tu API Key</h2>
+            <p style="font-size:14px;color:#444;line-height:1.6;">
+                Tu aplicación se autentica contra authservise con el grant
+                <code>client_credentials</code> de OAuth2: primero pide un token con tu
+                <code>client_id</code> y <code>client_secret</code>, y después usa ese token
+                (con vigencia limitada, configurable por request) en cada llamada.
+            </p>
+            <pre># 1) Pedís un access token (repetilo cada vez que expire, no hay refresh token)
+curl -u "TU_CLIENT_ID:TU_CLIENT_SECRET" \
+     -d "grant_type=client_credentials&ttl=1800" \
+     https://auth.coupertech.com/oauth/token
+
+# -> {"access_token": "...", "token_type": "Bearer", "expires_in": 1800, "scope": "..."}
+
+# 2) Usás el token en cada request
+curl -H "Authorization: Bearer TU_ACCESS_TOKEN" \
+     https://auth.coupertech.com/algun-endpoint</pre>
+            <p style="font-size:13px;color:#999;margin-top:12px;">
+                El <code>client_secret</code> solo se muestra una vez (al generar la API Key o
+                al rotar el secreto) — guardalo en un gestor de secretos de tu lado, no se puede
+                recuperar después.
+            </p>
+            <p style="font-size:13px;margin-top:16px;">
+                📖 <a href="https://auth.coupertech.com/documentacion/API_TERCEROS.md" target="_blank" rel="noopener">
+                    Documentación completa de la API de credenciales M2M
+                </a>
+                (scopes, rotación de secreto, introspección de tokens, notas de seguridad).
+            </p>
+        </div>
+    </div>
+
+    <div class="overlay" id="overlaySecreto">
+        <div class="modal">
+            <h3>Guardá tu client_secret ahora</h3>
+            <div class="aviso">⚠️ Este secreto no se vuelve a mostrar. Si lo perdés, vas a tener que rotarlo.</div>
+            <div><strong>Client ID:</strong></div>
+            <div class="secreto-box" id="modalClientId"></div>
+            <div><strong>Client secret:</strong></div>
+            <div class="secreto-box" id="modalClientSecret"></div>
+            <button class="btn-primario btn-cerrar" onclick="cerrarModal()">Ya lo guardé</button>
+        </div>
+    </div>
+
+    <script>
+        // "Ultima actividad" en hora local, no ISO crudo.
+        document.querySelectorAll('.ultima-actividad').forEach(td => {
+            const ts = td.dataset.ts;
+            if (ts) {
+                td.textContent = new Date(ts).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
+            }
+        });
+
+        function mostrarMsg(id, texto, tipo) {
+            const el = document.getElementById(id);
+            el.textContent = texto;
+            el.className = 'msg ' + tipo;
+        }
+
+        async function crearUsuario(ev) {
+            ev.preventDefault();
+            const boton = ev.target.querySelector('button');
+            boton.disabled = true;
+            try {
+                const resp = await fetch('/api/metricas/usuarios', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nombre: document.getElementById('nuevoNombre').value,
+                        email: document.getElementById('nuevoEmail').value,
+                        password: document.getElementById('nuevoPassword').value,
+                        rol: 'admin',
+                    }),
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    mostrarMsg('msgAlta', 'Administrador creado. Se envió un correo de verificación.', 'ok');
+                    setTimeout(() => window.location.reload(), 1200);
+                } else {
+                    mostrarMsg('msgAlta', data.error || 'No se pudo crear el usuario.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAlta', 'Error de conexión.', 'error');
+            }
+            boton.disabled = false;
+            return false;
+        }
+
+        async function eliminarUsuario(identidadId) {
+            if (!confirm('¿Eliminar este usuario de la organización?')) return;
+            try {
+                const resp = await fetch(`/api/metricas/usuarios/${identidadId}`, { method: 'DELETE' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    document.querySelector(`tr[data-identidad-id="${identidadId}"]`).remove();
+                } else {
+                    mostrarMsg('msgUsuarios', data.error || 'No se pudo eliminar el usuario.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgUsuarios', 'Error de conexión.', 'error');
+            }
+        }
+
+        // ── API Keys (aplicaciones de terceros) ──
+        document.querySelectorAll('#tablaAplicaciones .fecha[data-ts]').forEach(td => {
+            const ts = td.dataset.ts;
+            if (ts) {
+                td.textContent = new Date(ts).toLocaleString('es-MX', { dateStyle: 'medium', timeStyle: 'short' });
+            }
+        });
+
+        function mostrarSecreto(clientId, clientSecret) {
+            document.getElementById('modalClientId').textContent = clientId;
+            document.getElementById('modalClientSecret').textContent = clientSecret;
+            document.getElementById('overlaySecreto').classList.add('visible');
+        }
+
+        function cerrarModal() {
+            document.getElementById('overlaySecreto').classList.remove('visible');
+            window.location.reload();
+        }
+
+        async function crearAplicacion(ev) {
+            ev.preventDefault();
+            const boton = ev.target.querySelector('button');
+            boton.disabled = true;
+            try {
+                const resp = await fetch('/api/aplicaciones', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ nombre: document.getElementById('nuevoNombreApp').value }),
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    mostrarSecreto(data.client_id, data.client_secret);
+                } else {
+                    mostrarMsg('msgAltaAplicacion', data.error || 'No se pudo crear la aplicación.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAltaAplicacion', 'Error de conexión.', 'error');
+            }
+            boton.disabled = false;
+            return false;
+        }
+
+        async function rotarSecreto(clientId) {
+            if (!confirm('¿Rotar el secreto de esta aplicación? El secreto anterior deja de funcionar de inmediato.')) return;
+            try {
+                const resp = await fetch(`/api/aplicaciones/${clientId}/rotar-secreto`, { method: 'POST' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    mostrarSecreto(clientId, data.client_secret);
+                } else {
+                    mostrarMsg('msgAplicaciones', data.error || 'No se pudo rotar el secreto.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAplicaciones', 'Error de conexión.', 'error');
+            }
+        }
+
+        async function desactivarAplicacion(clientId) {
+            if (!confirm('¿Desactivar esta aplicación? Podés reactivarla después.')) return;
+            try {
+                const resp = await fetch(`/api/aplicaciones/${clientId}/desactivar`, { method: 'POST' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    window.location.reload();
+                } else {
+                    mostrarMsg('msgAplicaciones', data.error || 'No se pudo desactivar la aplicación.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAplicaciones', 'Error de conexión.', 'error');
+            }
+        }
+
+        async function reactivarAplicacion(clientId) {
+            try {
+                const resp = await fetch(`/api/aplicaciones/${clientId}/reactivar`, { method: 'POST' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    window.location.reload();
+                } else {
+                    mostrarMsg('msgAplicaciones', data.error || 'No se pudo reactivar la aplicación.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAplicaciones', 'Error de conexión.', 'error');
+            }
+        }
+
+        async function eliminarAplicacion(clientId) {
+            if (!confirm('¿Eliminar esta aplicación? Esta acción no se puede deshacer.')) return;
+            try {
+                const resp = await fetch(`/api/aplicaciones/${clientId}`, { method: 'DELETE' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    document.querySelector(`tr[data-client-id="${clientId}"]`).remove();
+                } else {
+                    mostrarMsg('msgAplicaciones', data.error || 'No se pudo eliminar la aplicación.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAplicaciones', 'Error de conexión.', 'error');
+            }
+        }
+    </script>
+</body>
+</html>

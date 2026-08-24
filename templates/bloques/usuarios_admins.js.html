@@ -1,0 +1,45 @@
+        formatearFechas('.ultima-actividad');
+
+        async function crearUsuario(ev) {
+            ev.preventDefault();
+            const boton = ev.target.querySelector('button');
+            boton.disabled = true;
+            try {
+                const resp = await fetch('/api/metricas/usuarios', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        nombre: document.getElementById('nuevoNombre').value,
+                        email: document.getElementById('nuevoEmail').value,
+                        password: document.getElementById('nuevoPassword').value,
+                        rol: 'admin',
+                    }),
+                });
+                const data = await resp.json();
+                if (resp.ok) {
+                    mostrarMsg('msgAlta', 'Administrador creado. Se envió un correo de verificación.', 'ok');
+                    setTimeout(() => window.location.reload(), 1200);
+                } else {
+                    mostrarMsg('msgAlta', data.error || 'No se pudo crear el usuario.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgAlta', 'Error de conexión.', 'error');
+            }
+            boton.disabled = false;
+            return false;
+        }
+
+        async function eliminarUsuario(identidadId) {
+            if (!confirm('¿Eliminar este usuario de la organización?')) return;
+            try {
+                const resp = await fetch(`/api/metricas/usuarios/${identidadId}`, { method: 'DELETE' });
+                const data = await resp.json();
+                if (resp.ok) {
+                    document.querySelector(`tr[data-identidad-id="${identidadId}"]`).remove();
+                } else {
+                    mostrarMsg('msgUsuarios', data.error || 'No se pudo eliminar el usuario.', 'error');
+                }
+            } catch (err) {
+                mostrarMsg('msgUsuarios', 'Error de conexión.', 'error');
+            }
+        }

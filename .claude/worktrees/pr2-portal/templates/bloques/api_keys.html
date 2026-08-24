@@ -1,0 +1,46 @@
+        <div class="section">
+            {% if config.api_keys.nombre_display %}
+            <h2>API Keys de {{ config.api_keys.nombre_display }}</h2>
+            <p style="color:#999;font-size:0.9em;margin-top:-8px">
+                Credenciales M2M restringidas al scope <code>{{ config.api_keys.filtro_servicio }}:*</code>,
+                exclusivas de este servicio — no se ven ni se gestionan desde ningún otro panel.
+            </p>
+            {% else %}
+            <h2>API Keys (aplicaciones de terceros)</h2>
+            <p style="color:#999;font-size:0.9em;margin-top:-8px">
+                Credenciales M2M de acceso general, sin restringir a un servicio específico.
+                Para las credenciales de secretos, síntesis o transcripción, entrá al panel de
+                métricas de ese servicio — no se gestionan desde acá.
+            </p>
+            {% endif %}
+            <div id="msgAplicaciones" class="msg"></div>
+            <table>
+                <thead>
+                    <tr><th>Nombre</th><th>Client ID</th><th>Estado</th><th>Creada</th><th>Último uso</th><th></th></tr>
+                </thead>
+                <tbody id="tablaAplicaciones">
+                    {% for a in aplicaciones %}
+                    <tr data-client-id="{{ a.client_id }}">
+                        <td>{{ a.nombre }}</td>
+                        <td><code>{{ a.client_id }}</code></td>
+                        <td><span class="estado-badge {{ 'activo' if a.activo else 'inactivo' }}">{{ 'activo' if a.activo else 'inactivo' }}</span></td>
+                        <td class="fecha" data-ts="{{ a.created_at or '' }}">—</td>
+                        <td class="fecha" data-ts="{{ a.last_used_at or '' }}">{{ 'Nunca' if not a.last_used_at else '—' }}</td>
+                        <td>
+                            <div class="acciones">
+                                <button class="btn-accion" onclick="rotarSecreto('{{ a.client_id }}')">Rotar secreto</button>
+                                {% if a.activo %}
+                                <button class="btn-accion" onclick="desactivarAplicacion('{{ a.client_id }}')">Desactivar</button>
+                                {% else %}
+                                <button class="btn-accion" onclick="reactivarAplicacion('{{ a.client_id }}')">Reactivar</button>
+                                {% endif %}
+                                <button class="btn-eliminar" onclick="eliminarAplicacion('{{ a.client_id }}')">Eliminar</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr><td colspan="6" style="text-align:center;color:#999;padding:24px">{% if config.api_keys.nombre_display %}Todavía no tenés API Keys de {{ config.api_keys.nombre_display }}.{% else %}Todavía no tenés aplicaciones.{% endif %}</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>

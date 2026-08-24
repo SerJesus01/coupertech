@@ -1,0 +1,64 @@
+stages:
+  - build
+  - secret-scanning
+  - sonar
+  - deploy
+
+variables:
+  REGISTRY_URL: "192.168.100.50:5000"
+  SONAR_HOST_URL: "http://192.168.100.50:9000"
+  VAULT_ADDR: "http://192.168.100.50:8200"
+  # Site key de Cloudflare Turnstile: PUBLICA (va en el HTML servido al
+  # navegador, cualquiera la ve con "ver codigo fuente"), no es un secreto
+  # -- por eso va hardcodeada aca y no en Vault. .env NO esta versionado
+  # (esta en .gitignore), asi que en el pipeline (checkout limpio) ese
+  # archivo no existe -- intentar leerlo de ahi mandaba esta variable
+  # vacia y el widget de Turnstile nunca renderizaba (hallazgo 07/jul/2026).
+  TURNSTILE_SITE_KEY: "0x4AAAAAADwPXjp6IJalV9yA"
+
+build:
+  stage: build
+  script:
+    - docker build -f Dockerfile -t $REGISTRY_URL/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA .
+    - docker tag $REGISTRY_URL/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA $REGISTRY_URL/$CI_PROJECT_NAME:latest
+    - docker push $REGISTRY_URL/$CI_PROJECT_NAME:$CI_COMMIT_SHORT_SHA
+    - docker push $REGISTRY_URL/$CI_PROJECT_NAME:latest
+  only:
+    - main
+
+secret-scanning:
+  stage: secret-scanning
+  script:
+    - docker run --rm -v "$PWD:/repo" trufflesecurity/trufflehog:latest filesystem /repo --no-verification --fail --exclude-paths=/repo/.trufflehogignore
+  allow_failure: false
+  only:
+    - main
+
+sonar:
+  stage: sonar
+  script:
+    - 'VAULT_TOKEN=$(wget -q -O- --post-data="{\"password\":\"$VAULT_PASS\"}" --header="Content-Type: application/json" $VAULT_ADDR/v1/auth/userpass/login/gitlab-runner | python3 -c "import json,sys; print(json.load(sys.stdin)[\"auth\"][\"client_token\"])")'
+    - 'SONAR_TOKEN=$(wget -q -O- --header="X-Vault-Token: $VAULT_TOKEN" $VAULT_ADDR/v1/secret/data/sonarqube | python3 -c "import json,sys; print(json.load(sys.stdin)[\"data\"][\"data\"][\"token\"])")'
+    - 'wget -q "https://repo1.maven.org/maven2/org/sonarsource/scanner/cli/sonar-scanner-cli/7.0.2.4839/sonar-scanner-cli-7.0.2.4839.jar" -O /tmp/sonar.jar'
+    - 'java -jar /tmp/sonar.jar -Dsonar.host.url=$SONAR_HOST_URL -Dsonar.token=$SONAR_TOKEN -Dsonar.projectKey=$CI_PROJECT_NAME -Dsonar.projectName=$CI_PROJECT_NAME -Dsonar.sources=. -Dsonar.exclusions=templates/**,**/__pycache__/** -Dsonar.python.version=3.11 -Dsonar.qualitygate.wait=true'
+  only:
+    - main
+  allow_failure: false
+
+deploy:
+  stage: deploy
+  script:
+    - docker pull $REGISTRY_URL/$CI_PROJECT_NAME:latest
+    - docker stop $CI_PROJECT_NAME || true
+    - docker rm $CI_PROJECT_NAME || true
+    - >
+      docker run -d --name $CI_PROJECT_NAME --restart unless-stopped -p 8081:8080
+      -e AUTH_SERVICE_URL="http://192.168.100.50:8000"
+      -e CATALAGO_URL="http://192.168.100.50:8083"
+      -e SERVICIO_SLUG="portal"
+      -e TURNSTILE_SITE_KEY="$TURNSTILE_SITE_KEY"
+      -e SESSION_TTL="3600"
+      -e SSO_COOKIE_DOMAIN=".coupertech.com"
+      $REGISTRY_URL/$CI_PROJECT_NAME:latest
+  only:
+    - main

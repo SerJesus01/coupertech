@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CouperTech | Suscribirse — {{ servicio.nombre }}</title>
+    <style>
+        :root { --bg: #0a0b10; --accent: #58a6ff; --card: #161b22; --border: #30363d; }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', sans-serif; background: var(--bg); color: white;
+               min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+        .card { background: var(--card); border: 1px solid var(--border); border-radius: 16px;
+                padding: 40px; width: 100%; max-width: 420px; margin: 20px; }
+        .back-link { display: inline-flex; color: var(--accent); text-decoration: none;
+                     font-size: 14px; margin-bottom: 24px; opacity: 0.8; }
+        .back-link:hover { opacity: 1; }
+        h1 { font-size: 24px; margin-bottom: 6px; }
+        .resumen { color: #8b949e; font-size: 14px; margin-bottom: 24px; line-height: 1.6; }
+        .resumen strong { color: white; }
+        .precio { font-size: 32px; font-weight: 800; margin-bottom: 24px; }
+        .precio span { font-size: 15px; font-weight: 400; color: #8b949e; }
+        label { display: block; font-size: 13px; color: #c9d1d9; margin-bottom: 6px; }
+        input { width: 100%; padding: 12px 14px; font-size: 15px; border-radius: 8px;
+                border: 1px solid var(--border); background: #0d1117; color: white;
+                margin-bottom: 20px; font-family: inherit; }
+        input:focus { outline: none; border-color: var(--accent); }
+        .nota { font-size: 12px; color: #8b949e; margin-top: -12px; margin-bottom: 20px; }
+        button { width: 100%; padding: 14px; font-size: 15px; font-weight: 600;
+                 background: var(--accent); color: #000; border: none; border-radius: 8px;
+                 cursor: pointer; }
+        button:hover { opacity: 0.9; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; }
+        .error { background: rgba(248,81,73,0.1); border: 1px solid rgba(248,81,73,0.4);
+                 color: #f85149; padding: 12px; border-radius: 8px; font-size: 13px;
+                 margin-bottom: 16px; display: none; }
+        .error.show { display: block; }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <a href="/planes/{{ servicio.slug }}" class="back-link">← Volver a planes</a>
+        <h1>Confirmar suscripción</h1>
+        <p class="resumen">
+            <strong>{{ servicio.nombre }}</strong> — Plan {{ plan.nombre }}
+        </p>
+        <div class="precio">${{ "%.2f"|format(plan.precio_cents / 100) }}<span>/mes</span></div>
+
+        <div class="error" id="errorMsg"></div>
+
+        <form id="suscribirseForm" onsubmit="return handleSuscribir(event)">
+            <label for="pago">Confirmación de pago (simulado)</label>
+            <input type="text" id="pago" placeholder="Escribe cualquier palabra" required>
+            <p class="nota">Esto es un gestor de pago de prueba (dummy) -- no se cobra nada real.</p>
+            <button type="submit" id="btnSuscribir">Confirmar suscripción</button>
+        </form>
+    </div>
+
+    <script>
+        async function handleSuscribir(e) {
+            e.preventDefault();
+            const btn = document.getElementById('btnSuscribir');
+            const error = document.getElementById('errorMsg');
+            error.classList.remove('show');
+            btn.disabled = true;
+
+            try {
+                const resp = await fetch('/api/suscribirse', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        servicio_slug: '{{ servicio.slug }}',
+                        plan_id: {{ plan.id }},
+                    }),
+                });
+                const data = await resp.json().catch(() => ({}));
+
+                if (resp.ok) {
+                    window.location.href = '/dashboard';
+                    return;
+                }
+                error.textContent = data.error || 'No se pudo completar la suscripción.';
+                error.classList.add('show');
+            } catch (err) {
+                error.textContent = 'Error de conexión. Intenta de nuevo.';
+                error.classList.add('show');
+            } finally {
+                btn.disabled = false;
+            }
+            return false;
+        }
+    </script>
+<script src="/static/session-refresh.js"></script>
+</body>
+</html>

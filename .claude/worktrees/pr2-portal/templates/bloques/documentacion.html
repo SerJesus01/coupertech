@@ -1,0 +1,43 @@
+        <div class="section">
+            <h2>Cómo usar tu API Key</h2>
+            {% if config.documentacion.variante == "larga" %}
+            <p style="font-size:14px;color:#444;line-height:1.6;">
+                Tu aplicación se autentica contra authservise con el grant
+                <code>client_credentials</code> de OAuth2: primero pide un token con tu
+                <code>client_id</code> y <code>client_secret</code>, y después usa ese token
+                (con vigencia limitada, configurable por request) en cada llamada.
+            </p>
+            <pre># 1) Pedís un access token (repetilo cada vez que expire, no hay refresh token)
+curl -u "TU_CLIENT_ID:TU_CLIENT_SECRET" \
+     -d "grant_type=client_credentials&ttl=1800" \
+     https://auth.coupertech.com/oauth/token
+
+# -> {"access_token": "...", "token_type": "Bearer", "expires_in": 1800, "scope": "..."}
+
+# 2) Usás el token en cada request
+curl -H "Authorization: Bearer TU_ACCESS_TOKEN" \
+     https://auth.coupertech.com/algun-endpoint</pre>
+            <p style="font-size:13px;color:#999;margin-top:12px;">
+                El <code>client_secret</code> solo se muestra una vez (al generar la API Key o
+                al rotar el secreto) — guardalo en un gestor de secretos de tu lado, no se puede
+                recuperar después.
+            </p>
+            <p style="font-size:13px;margin-top:16px;">
+                📖 <a href="https://auth.coupertech.com/documentacion/API_TERCEROS.md" target="_blank" rel="noopener">
+                    Documentación completa de la API de credenciales M2M
+                </a>
+                (scopes, rotación de secreto, introspección de tokens, notas de seguridad).
+            </p>
+            {% else %}
+            <p style="font-size:14px;color:#444;line-height:1.6;">
+                Tu aplicación se autentica con el grant <code>client_credentials</code> de OAuth2:
+                primero pide un token con tu <code>client_id</code> y <code>client_secret</code>,
+                y después usa ese token en cada llamada a <code>{{ config.documentacion.servicio_codigo }}</code>.
+            </p>
+            <p style="font-size:13px;color:#999;margin-top:12px;">
+                El <code>client_secret</code> solo se muestra una vez (al generar la API Key o
+                al rotar el secreto) — guardalo en un gestor de secretos de tu lado, no se puede
+                recuperar después.
+            </p>
+            {% endif %}
+        </div>

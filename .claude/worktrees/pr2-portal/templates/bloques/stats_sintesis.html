@@ -1,0 +1,11 @@
+            {% if metricas_sintesis %}
+            <div class="stat-card">
+                <div class="valor">{{ metricas_sintesis.palabras_procesadas }}</div>
+                <div class="etiqueta">Palabras procesadas</div>
+            </div>
+            {% else %}
+            <div class="stat-card">
+                <div class="valor" style="font-size:16px;color:#999;">Servicio no disponible</div>
+                <div class="etiqueta">No se pudieron cargar las métricas ahora mismo</div>
+            </div>
+            {% endif %}
